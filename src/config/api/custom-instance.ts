@@ -34,7 +34,11 @@ const customInstance = async <T>(
     ...options,
   })
     .then(({ data }) => {
-      return data;
+      if (data.isFailed) {
+        throw new Error(data.errors[0]);
+      } else {
+        return data;
+      }
     })
     .catch((error) => {
       if (typeof window !== "undefined" && Number(error?.response?.status)) {
@@ -53,8 +57,11 @@ const customInstance = async <T>(
             toast(error?.response?.data?.messages?.[0]?.message);
           }
         } else {
-          toast("مشکلی در سرور به وجود آمده است");
+          toast("There was an error on server please try again later!");
         }
+      } else if (error instanceof Error) {
+        toast(error.message)
+        return error
       }
       return error?.response?.data;
     });

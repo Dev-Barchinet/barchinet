@@ -1,9 +1,10 @@
+import { googleProvider } from "@/config/api/auth/providers/googleProvider";
 import { signUpProvider } from "@/config/api/auth/providers/signUpProvider";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 
 const nextAuthOptions: NextAuthOptions = {
-  providers: [signUpProvider],
+  providers: [signUpProvider, googleProvider],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -32,7 +33,7 @@ const nextAuthOptions: NextAuthOptions = {
   jwt: {
     secret: process.env.JWT_SECRET,
   },
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(nextAuthOptions);

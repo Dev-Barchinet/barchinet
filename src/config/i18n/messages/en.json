@@ -2,5 +2,18 @@
   "HomePage": {
     "title": "Hello world!",
     "about": "Go to the about page"
+  },
+  "Auth": {
+    "CheckEmail": {
+      "login": "Login",
+      "title": "Enter your email below to create your account",
+      "emailRequired": "Email is required",
+      "emailPlaceHolder": "name@example.com",
+      "validEmailError": "Please enter a valid email address",
+      "signInGoogle": "Sign in with Google",
+      "signInLinedin": "Sign in with Linkedin",
+      "getCode": "Get The Code",
+      "or": "OR CONTINUE WITH"
+    }
   }
 }

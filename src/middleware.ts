@@ -40,6 +40,11 @@ const middleware = withAuth(
   function middleware(request) {
     const token = request.nextauth?.token
     const pathname = request.nextUrl.pathname
+
+    if (pathname.startsWith('/assets')) {
+      return NextResponse.next()
+    }
+    
     const pathnameIsMissingLocale = routing.locales.every(
       locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
     )
@@ -50,11 +55,11 @@ const middleware = withAuth(
 
     // If the user is not authenticated and the path is protected, redirect to login
     const callbackUrl = pathname || '/'
+    const locale = getLocale(request)
     if (!token && protectedPathsWithLocale.includes(pathname+'/')) {
-      console.log("no token found redirecting")
       return NextResponse.redirect(
         new URL(
-          `/api/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`,
+          `/${locale}/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`,
           request.url
         )
       )
@@ -62,7 +67,6 @@ const middleware = withAuth(
 
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
-      const locale = getLocale(request)
       return NextResponse.redirect(
         new URL(
           `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
