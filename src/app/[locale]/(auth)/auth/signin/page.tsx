@@ -1,4 +1,4 @@
-import SignIn from '@/pages/auth/SignIn'
+import SignIn from '@/domains/auth/SignIn'
 import React from 'react'
 
 const page = () => {
