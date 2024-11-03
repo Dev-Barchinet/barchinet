@@ -1,31 +1,29 @@
 import Credentials from "next-auth/providers/credentials";
 import { User } from "next-auth";
 
-type CreateUserCredentials = {
+type UserCredentials = {
   firstName: string;
-  passwordToken: string;
   lastName: string;
   email?: string;
   phoneNumber?: string;
-  fileAccessCredential: string
-  id: string
-  accessToken: string
+  fileAccessCredential: string;
+  id: string;
+  accessToken: string;
 };
 
-export const signUpProvider = Credentials({
-  id: "CREATE_USER",
-  name: "CreateCustomer",
+export const signInProvider = Credentials({
+  id: "LOGIN_USER",
+  name: "LoginUser",
   credentials: {
     firstName: { label: "First Name", type: "text" },
-    passwordToken: { label: "passwordToken", type: "string" },
     lastName: { label: "Last Name", type: "text" },
     email: { label: "Email", type: "email" },
     phoneNumber: { label: "Phone Number", type: "text" },
     fileAccessCredential: { label: "fileAccessCredential", type: "text" },
-    accessToken: { label: "accessToken", type: 'text' },
-    id: { lable: 'id', type: 'text' }
+    accessToken: { label: "accessToken", type: "text" },
+    id: { lable: "id", type: "text" },
   },
-  async authorize(credentials: CreateUserCredentials | undefined): Promise<User | null> {
+  async authorize(credentials: UserCredentials | undefined): Promise<User | null> {
     if (credentials) {
       // Logging credentials for debugging; replace with actual sign-up logic
       console.log("Received credentials:", credentials);
@@ -37,9 +35,8 @@ export const signUpProvider = Credentials({
         lastName: credentials.lastName,
         email: credentials.email || "",
         fileAccessCredential: credentials.fileAccessCredential,
-        passwordToken: credentials.passwordToken,
         accessToken: credentials.accessToken,
-        avatar: ''
+        avatar: "",
       };
 
       return user; // Return user to create session

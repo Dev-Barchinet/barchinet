@@ -9,6 +9,9 @@ declare module 'next-auth' {
     user: {
       id: string;          // Add the user's ID
       firstName: string;    // Add first name
+      email: string;
+      fileAccessCredential: string
+      passwordToken?: string
       lastName: string;     // Add last name
       avatar: string;       // Add avatar URL
       accessToken: string;  // Add access token
@@ -20,6 +23,9 @@ declare module 'next-auth' {
     id: string;
     firstName: string;
     lastName: string;
+    email: string;
+    fileAccessCredential: string
+    passwordToken?: string
     avatar: string;
     accessToken: string;
   }
@@ -27,6 +33,10 @@ declare module 'next-auth' {
   interface JWT {
     id: string;
     accessToken: string;
+    email: string;
+    fileAccessCredential: string
+    passwordToken?: string
+
     firstName: string;
     lastName: string;
     avatar: string;

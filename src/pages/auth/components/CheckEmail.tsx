@@ -2,10 +2,9 @@ import { TextFieldController } from "@/components/form-controls/TextFieldControl
 import IconWrapper from "@/components/IconWrapper";
 import { Button } from "@/components/ui/button";
 import { GoogleAuthIcon } from "@/core/icons/GoogleAuthIcon";
-import { LinkedinAuthIcon } from "@/core/icons/LinkedinAuthIcon";
 import FormWrapper from "@/core/providers/FormProvider";
-import useAuthStepperStore from "@/core/stores/useAuthStore";
-import { usePostApiArchitectAuthEntryGenerateOtp } from "@/services/architect-services/api-architect-auth-entry-post";
+import useAuthStepperStore, { AuthStep } from "@/core/stores/useAuthStore";
+import { usePostApiArchitectAuthEntryGenerateOtp } from "@/services/architect-services/api-architect-auth-entry-generate-otp-post";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -16,7 +15,7 @@ interface FormValues {
 }
 
 const CheckEmail = () => {
-  const { setEmail, setHasAccount, setOtp, setLifeSpan, goToNextStep } =
+  const { setEmail, setHasAccount, setOtp, setLifeSpan, setStep } =
     useAuthStepperStore();
   const { control, handleSubmit } = useForm<FormValues>();
   const t = useTranslations("Auth.CheckEmail");
@@ -24,8 +23,9 @@ const CheckEmail = () => {
   const { mutateAsync: generateOtp, isLoading } =
     usePostApiArchitectAuthEntryGenerateOtp();
 
-  const handleGoogleAuth = () => {
-    signIn("google", { redirect: true, callbackUrl: "/dashboard" });
+  const handleGoogleAuth = async () => {
+    const response = await signIn("google");
+    console.log(response);
   };
 
   const onSubmit = (data: FormValues) => {
@@ -40,7 +40,7 @@ const CheckEmail = () => {
         setOtp(otpResponse?.token || "");
         setLifeSpan(otpResponse?.lifespan || 360);
 
-        goToNextStep();
+        setStep(AuthStep.ENTER_OTP);
       }
     });
   };
@@ -78,14 +78,19 @@ const CheckEmail = () => {
             <p className="text-text-muted-foreground">{t("or")}</p>
             <div className="flex-1 h-[1px] bg-border-border"></div>
           </div>
-          <Button variant={"outline"} type="button" className="mt-6" onClick={handleGoogleAuth}>
+          <Button
+            variant={"outline"}
+            type="button"
+            className="mt-6"
+            onClick={handleGoogleAuth}
+          >
             <IconWrapper icon={GoogleAuthIcon} />
             <p>{t("signInGoogle")}</p>
           </Button>
-          <Button variant={"outline"} type="button" onClick={handleGoogleAuth}>
+          {/* <Button variant={"outline"} type="button" onClick={handleGoogleAuth}>
             <IconWrapper icon={LinkedinAuthIcon} />
             <p>{t("signInLinedin")}</p>
-          </Button>
+          </Button> */}
         </div>
       </FormWrapper>
     </div>

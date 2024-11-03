@@ -5,6 +5,11 @@ import CheckEmail from "./components/CheckEmail";
 import EnterOtp from "./components/EnterOtp";
 import IconWrapper from "@/components/IconWrapper";
 import { BarchinetLogo } from "@/core/icons/BarchinetLogo";
+import CompleteProfile from "./components/CompleteProfile";
+import EnterLoginPassword from "./components/EnterLoginPassword";
+import ResetPassword from "./components/ResetPassword";
+import ResetPasswordOtp from "./components/ResetPasswordOtp";
+import SetPassword from "./components/SetPassword";
 
 const SignIn = () => {
   const { step, loading } = useAuthStepperStore();
@@ -17,9 +22,11 @@ const SignIn = () => {
 
           {step === "checkEmail" && <CheckEmail />}
           {step === "enterOtp" && <EnterOtp />}
-          {step === "enterPassword" && "Enter Password"}
-          {step === "completeProfile" && "Complete Profile"}
-          {step === "setPassword" && "SET PAss"}
+          {step === "enterPassword" && <EnterLoginPassword />}
+          {step === "completeProfile" && <CompleteProfile />}
+          {step === "resetPassword" && <ResetPassword />}
+          {step === "passwordOtp" && <ResetPasswordOtp />}
+          {step === "setPassword" && <SetPassword />}
         </div>
       )}
     </div>

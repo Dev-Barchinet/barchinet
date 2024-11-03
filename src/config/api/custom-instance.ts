@@ -1,4 +1,5 @@
 import Axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { getSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
 const axiosInstance = Axios.create({
@@ -7,13 +8,14 @@ const axiosInstance = Axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const token = "";
+    const session = await getSession();
+    const token = session?.user.accessToken
 
     const tokenType = "Bearer";
 
     if (config.headers) {
       if (token) {
-        config.headers.Authorization = `${tokenType} ${token}`;
+        config.headers.authorization = `${tokenType} ${token}`;
       }
     }
 
@@ -33,7 +35,9 @@ const customInstance = async <T>(
     ...config,
     ...options,
   })
-    .then(({ data }) => {
+    .then((response) => {
+      console.log({response})
+      const data = response.data
       if (data.isFailed) {
         throw new Error(data.errors[0]);
       } else {
@@ -41,6 +45,7 @@ const customInstance = async <T>(
       }
     })
     .catch((error) => {
+      console.log(error)
       if (typeof window !== "undefined" && Number(error?.response?.status)) {
         const expectedError =
           error?.response?.status &&
@@ -49,19 +54,21 @@ const customInstance = async <T>(
 
         if (error?.response?.status === 401) {
           //   signout
+          toast(error?.response?.data?.errors?.[0]);
+
         } else if (expectedError) {
           if (
             error?.code === "exception" ||
             error?.code === "ERR_BAD_REQUEST"
           ) {
-            toast(error?.response?.data?.messages?.[0]?.message);
+            toast(error?.response?.data?.errors?.[0]);
           }
         } else {
           toast("There was an error on server please try again later!");
         }
       } else if (error instanceof Error) {
-        toast(error.message)
-        return error
+        toast(error.message);
+        return error;
       }
       return error?.response?.data;
     });

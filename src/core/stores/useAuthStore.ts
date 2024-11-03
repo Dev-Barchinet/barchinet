@@ -9,6 +9,8 @@ enum AuthStep {
   COMPLETE_PROFILE = "completeProfile",
   SET_PASSWORD = "setPassword",
   LOGGED_IN = "loggedIn",
+  PASSWORD_OTP = "passwordOtp",
+  RESET_PASSWORD = "resetPassword",
 }
 
 type ProfileData = {
@@ -27,7 +29,7 @@ interface AuthStepperState {
   loading: boolean;
   lifeSpan: number;
 
-  setLifeSpan: (newLifeSpan: number) => void
+  setLifeSpan: (newLifeSpan: number) => void;
   setStep: (newStep: AuthStep) => void;
   setHasAccount: (hasAccount: boolean) => void;
   setOtp: (otp: string) => void;
@@ -35,7 +37,6 @@ interface AuthStepperState {
   setProfileData: (profileData: ProfileData) => void;
   setPassword: (password: string) => void;
 
-  goToNextStep: () => void;
   resetStepper: () => void;
 }
 
@@ -66,7 +67,7 @@ const useAuthStepperStore = create<AuthStepperState>()(
         name: "",
         familyName: "",
       },
-      lifeSpan: 360,
+      lifeSpan: 0,
       password: "",
       loading: true, // Initially set loading to true
 
@@ -81,29 +82,6 @@ const useAuthStepperStore = create<AuthStepperState>()(
           profileData: { ...state.profileData, ...profileData },
         })),
       setPassword: (password) => set({ password }),
-
-      // Step Control Methods
-      goToNextStep: () =>
-        set((state) => {
-          switch (state.step) {
-            case AuthStep.CHECK_EMAIL:
-              return { step: AuthStep.ENTER_OTP };
-            case AuthStep.ENTER_OTP:
-              return {
-                step: state.hasAccount
-                  ? AuthStep.ENTER_PASSWORD
-                  : AuthStep.COMPLETE_PROFILE,
-              };
-            case AuthStep.ENTER_PASSWORD:
-              return state.hasAccount ? { step: AuthStep.LOGGED_IN } : state;
-            case AuthStep.COMPLETE_PROFILE:
-              return { step: AuthStep.SET_PASSWORD };
-            case AuthStep.SET_PASSWORD:
-              return { step: AuthStep.LOGGED_IN };
-            default:
-              return state;
-          }
-        }),
 
       resetStepper: () =>
         set({

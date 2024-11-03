@@ -121,7 +121,7 @@ const codeGenerator = async (baseURL, idsBaseURL, destination) => {
           },
         };
 
-        const adjustedPath = endpointPath.split("/").slice(1, -1).join("-");
+        const adjustedPath = endpointPath.split("/").slice(1).join('-');
 
         const endpointConfig = {
           output: {

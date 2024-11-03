@@ -14,6 +14,57 @@
       "signInLinedin": "Sign in with Linkedin",
       "getCode": "Get The Code",
       "or": "OR CONTINUE WITH"
+    },
+    "EnterOtp": {
+      "otpCode": "Otp Code",
+      "enterOtp": "Enter the 6-digit code sent to the email below",
+      "getCode": "Get the code again: ",
+      "resend": "resend",
+      "confirm": "Confirm",
+      "loginWithPassword": "Login with password",
+      "otpSent": "Otp sent successfully please check your email!"
+    },
+    "CompleteProfile": {
+      "createAccount": "Create an account",
+      "completeInformation": "Please complete your information.",
+      "namePlaceHolder": "name",
+      "familyNamePlaceHolder": "Family Name",
+      "signup": "Sign Up",
+      "login": "Login",
+      "or": "or"
+    },
+    "LoginWithPassword": {
+      "passwordPlaceholder": "Password",
+      "loginWithPassword": "Login with password",
+      "enterPassword": "Enter the password",
+      "forgotPassword": "Forgot Password",
+      "confirm": "Confirm"
+    },
+    "ResetPassword": {
+      "resetPassword": "Reset Password",
+      "reEnterPassword": "Please enter your password",
+      "passwordPlaceholder": "Password",
+      "login": "Login",
+      "atLeast8Chars": "At least 8 characters",
+      "upperCaseLowerCase": "Includes upper and lower case English letters",
+      "useNumbers": "Use numbers"
+    },
+    "SetPassword": {
+      "setPassword": "Set Password",
+      "reEnterPassword": "Please enter your password",
+      "passwordPlaceholder": "Password",
+      "atLeast8Chars": "At least 8 characters",
+      "upperCaseLowerCase": "Includes upper and lower case English letters",
+      "useNumbers": "Use numbers"
+    },
+    "RestPasswordOtp": {
+      "otpCode": "Otp Code",
+      "enterOtp": "Enter the 6-digit code sent to your email",
+      "getCode": "Get the code again: ",
+      "resend": "resend",
+      "confirm": "Confirm",
+      "otpSent": "Otp sent successfully please check your email!",
+      "login": "Login with password"
     }
   }
 }
