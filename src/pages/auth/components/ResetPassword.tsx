@@ -6,6 +6,7 @@ import { usePutApiArchitectAuthPassword } from "@/services/architect-services/ap
 import { CircleCheck } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -67,6 +68,7 @@ const ResetPassword = () => {
           .then((response) => {
             if (response?.ok) {
               console.log("logged in");
+              redirect("/dashboard");
             }
           })
           .finally(() => {

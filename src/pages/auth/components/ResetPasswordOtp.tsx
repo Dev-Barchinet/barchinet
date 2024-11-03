@@ -40,6 +40,7 @@ const ResetPasswordOtp = () => {
     verifyChangePasswordOtp({ data: { key: pin, token: otp } }).then(
       (response) => {
         if (response.isSuccess) {
+          setOtp(response.value?.changePasswordToken || "");
           setStep(AuthStep.RESET_PASSWORD);
         }
       }

@@ -4,8 +4,10 @@ import FormWrapper from "@/core/providers/FormProvider";
 import useAuthStepperStore, { AuthStep } from "@/core/stores/useAuthStore";
 import { usePostApiArchitectAuthPasswordChangeGenerateOtp } from "@/services/architect-services/api-architect-auth-password-change-generate-otp-post";
 import { usePostApiArchitectAuthSignIn } from "@/services/architect-services/api-architect-auth-sign-in-post";
+import { PencilLine } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -18,6 +20,8 @@ const EnterLoginPassword = () => {
   const t = useTranslations("Auth.LoginWithPassword");
   const { email, setStep, setOtp, setLifeSpan } = useAuthStepperStore();
   const [nextAuthLoading, setNextAuthLoading] = useState(false);
+  const { replace } = useRouter()
+
 
   const { mutateAsync: sendResetPassOtp, isLoading: sendingResetPasswordOtp } =
     usePostApiArchitectAuthPasswordChangeGenerateOtp();
@@ -54,6 +58,7 @@ const EnterLoginPassword = () => {
           .then((response) => {
             if (response?.ok) {
               console.log("logged in");
+              replace('/dashboard')
             }
           })
           .finally(() => {
@@ -73,6 +78,10 @@ const EnterLoginPassword = () => {
     });
   };
 
+  const goToEmailStep = () => {
+    setStep(AuthStep.CHECK_EMAIL);
+  };
+
   return (
     <div className="w-full flex-1 flex flex-col items-center gap-5">
       <div className="w-full text-center">
@@ -88,6 +97,15 @@ const EnterLoginPassword = () => {
         className="flex flex-col items-center gap-3 justify-between w-full flex-1"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <Button
+          type="button"
+          onClick={goToEmailStep}
+          variant={"secondary"}
+          className="max-w-[fit-content] flex items-center justify-center gap-2 px-4 mt-4 mb-2"
+        >
+          <PencilLine />
+          <p>{email}</p>
+        </Button>
         <TextFieldController
           name="password"
           control={control}

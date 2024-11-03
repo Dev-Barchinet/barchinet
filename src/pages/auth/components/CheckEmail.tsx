@@ -17,7 +17,9 @@ interface FormValues {
 const CheckEmail = () => {
   const { setEmail, setHasAccount, setOtp, setLifeSpan, setStep } =
     useAuthStepperStore();
-  const { control, handleSubmit } = useForm<FormValues>();
+  const { control, handleSubmit } = useForm<FormValues>({
+    defaultValues: { email: "" },
+  });
   const t = useTranslations("Auth.CheckEmail");
 
   const { mutateAsync: generateOtp, isLoading } =

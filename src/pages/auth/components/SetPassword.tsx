@@ -6,6 +6,7 @@ import { usePutApiArchitectAuthPassword } from "@/services/architect-services/ap
 import { CircleCheck } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -20,6 +21,7 @@ const SetPassword = () => {
   const { mutateAsync: changePassword, isLoading: changingPassword } =
     usePutApiArchitectAuthPassword();
   const [nextAuthLoading, setNextAuthLoading] = useState(false);
+  const { replace } = useRouter()
 
   const [conditions, setConditions] = useState({
     atLeast8Chars: false,
@@ -67,6 +69,7 @@ const SetPassword = () => {
           .then((response) => {
             if (response?.ok) {
               console.log("logged in");
+              replace('/dashboard')
             }
           })
           .finally(() => {

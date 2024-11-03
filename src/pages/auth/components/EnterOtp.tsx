@@ -27,7 +27,8 @@ const EnterOtp = () => {
 
   const form = useForm<FormValues>();
   const { handleSubmit } = form;
-  const { email, lifeSpan, hasAccount, setStep, otp } = useAuthStepperStore();
+  const { email, lifeSpan, hasAccount, setStep, otp, setOtp } =
+    useAuthStepperStore();
   const { minutes, seconds, restart, isFinished } = useCountdown(lifeSpan);
 
   const { replace } = useRouter();
@@ -68,6 +69,7 @@ const EnterOtp = () => {
             redirect: false,
           });
           // set user data
+          setOtp(setPasswordToken || "");
           setStep(AuthStep.COMPLETE_PROFILE);
         }
       });
@@ -119,8 +121,8 @@ const EnterOtp = () => {
   };
 
   const handleGotoLoginWithPassword = () => {
-    setStep(AuthStep.ENTER_PASSWORD)
-  }
+    setStep(AuthStep.ENTER_PASSWORD);
+  };
 
   return (
     <div className="w-full flex-1 flex flex-col items-center gap-5">
@@ -197,7 +199,12 @@ const EnterOtp = () => {
           </div>
           <div>
             {hasAccount && (
-              <Button className="mt-6 w-full" variant={"outline"} type="button" onClick={handleGotoLoginWithPassword}>
+              <Button
+                className="mt-6 w-full"
+                variant={"outline"}
+                type="button"
+                onClick={handleGotoLoginWithPassword}
+              >
                 {t("loginWithPassword")}
               </Button>
             )}
