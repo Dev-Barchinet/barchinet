@@ -1,14 +1,17 @@
 module.exports = {
   apps: [
     {
-      name: "architect",
-      script: "npm",
+      name: "NextAppName",
+      exec_mode: "cluster",
+      instances: 1, // Or a number of instances
+      script: "node_modules/next/dist/bin/next",
       args: "start",
-      instances: 1,
       autorestart: true,
       watch: false,
+      max_memory_restart: "1G",
       env: {
         NODE_ENV: "production",
+        NEXT_PUBLIC_APP_BASE_API_URL: "https://api.barchinet.com:8443/",
         JWT_SECRET: "please dont hack us",
         NEXTAUTH_SECRET: "please dont hack us",
         NEXTAUTH_URL: "http://localhost:3001",
@@ -19,6 +22,7 @@ module.exports = {
       },
       env_production: {
         NODE_ENV: "production",
+        NEXT_PUBLIC_APP_BASE_API_URL: "https://api.barchinet.com:8443/",
         JWT_SECRET: "please dont hack us",
         NEXTAUTH_SECRET: "please dont hack us",
         NEXTAUTH_URL: "http://localhost:3001",
