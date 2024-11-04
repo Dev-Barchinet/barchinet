@@ -56,7 +56,13 @@ const middleware = withAuth(
 
     // If the user is not authenticated and the path is protected, redirect to login
     const callbackUrl = pathname || "/";
-    const locale = getLocale(request);
+    let locale = "";
+    try {
+      locale = getLocale(request) || '';
+    } catch (error) {
+      console.error("error getting locale", error)
+      locale = "en";
+    }
     if (
       !token &&
       protectedPathsWithLocale.some((protectedPath) =>
