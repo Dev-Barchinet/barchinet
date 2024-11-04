@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "architect",
-      script: "npm start",
-      args: "--max-old-space-size=4096 --trace-deprecation",
+      script: "npm",
+      args: "start",
       cwd: "./",
       watch: true,
       max_memory_restart: "1G",
