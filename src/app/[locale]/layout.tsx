@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Locale, routing } from "@/config/i18n/routing";
-import "./globals.css";
+import "../globals.css";
 import localFont from 'next/font/local'
 import ClientProvider from "@/core/providers/ClientProvider";
 

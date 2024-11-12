@@ -58,9 +58,9 @@ const middleware = withAuth(
     const callbackUrl = pathname || "/";
     let locale = "";
     try {
-      locale = getLocale(request) || '';
+      locale = getLocale(request) || "";
     } catch (error) {
-      console.error("error getting locale", error)
+      console.error("error getting locale", error);
       locale = "en";
     }
     if (
@@ -79,8 +79,15 @@ const middleware = withAuth(
       );
     }
 
+    const pathIsRoot = pathname === "/";
+
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
+      if (pathIsRoot) {
+        return NextResponse.redirect(
+          new URL(`/${locale}/dashboard`, request.url)
+        );
+      }
       return NextResponse.redirect(
         new URL(
           `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,

@@ -66,5 +66,58 @@
       "otpSent": "Otp sent successfully please check your email!",
       "login": "Login with password"
     }
+  },
+  "Dashboard": {
+    "Navbar": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "conversation": "Conversation",
+      "account": "Account",
+      "portfolio": "Portfolio Management",
+      "logout": "Logout",
+      "contact": "Contact Support"
+    }
+  },
+  "Orders": {
+    "TableHeaders": {
+      "orderNumber": "Order Number",
+      "title": "Project Name",
+      "projectType": "Project Type",
+      "buildingCategory": "Building Category",
+      "architectureStyle": "Architecture Style",
+      "serviceCount": "Services Count",
+      "state": "State"
+    }
+  },
+  "Profile": {
+    "profile": "Account",
+    "profileTab": "Account Information",
+    "financialAccount": "Financial Account",
+    "logout": "Log Out",
+    "addFinancialAccount": "Add Financial account",
+    "Form": {
+      "mobileNumber": "Mobile Number",
+      "mobileNumberPlaceholder": "Enter mobile number",
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "name": "Name",
+      "namePlaceholder": "Enter name",
+      "familyName": "Family Name",
+      "familyNamePlaceholder": "Enter family name",
+      "email": "Email",
+      "emailPlaceholder": "Enter email",
+      "passportNumber": "Passport Number",
+      "passportNumberPlaceholder": "Enter passport number",
+      "birthDate": "Birth Date",
+      "birthDatePlaceholder": "YYYY-MM-DD",
+      "gender": "Gender",
+      "genderPlaceholder": "Select gender",
+      "genderFemale": "Female",
+      "genderMale": "Male",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "resetPassword": "Reset Password",
+      "save": "Save"
+    }
   }
 }

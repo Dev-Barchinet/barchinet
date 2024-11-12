@@ -9,7 +9,7 @@ const axiosInstance = Axios.create({
 axiosInstance.interceptors.request.use(
   async (config) => {
     const session = await getSession();
-    const token = session?.user.accessToken
+    const token = session?.user.accessToken;
 
     const tokenType = "Bearer";
 
@@ -36,8 +36,8 @@ const customInstance = async <T>(
     ...options,
   })
     .then((response) => {
-      console.log({response})
-      const data = response.data
+      console.log({ response });
+      const data = response.data;
       if (data.isFailed) {
         throw new Error(data.errors[0]);
       } else {
@@ -45,7 +45,7 @@ const customInstance = async <T>(
       }
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       if (typeof window !== "undefined" && Number(error?.response?.status)) {
         const expectedError =
           error?.response?.status &&
@@ -55,18 +55,22 @@ const customInstance = async <T>(
         if (error?.response?.status === 401) {
           //   signout
           toast(error?.response?.data?.errors?.[0]);
-
         } else if (expectedError) {
           if (
             error?.code === "exception" ||
             error?.code === "ERR_BAD_REQUEST"
           ) {
+            console.log("there");
             toast(error?.response?.data?.errors?.[0]);
           }
         } else {
           toast("There was an error on server please try again later!");
         }
-      } else if (error instanceof Error) {
+      } else if (error) {
+        console.log("gere");
+        if (Axios.isCancel(error)) {
+          return error;
+        }
         toast(error.message);
         return error;
       }

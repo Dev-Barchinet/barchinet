@@ -21,7 +21,7 @@ const SetPassword = () => {
   const { mutateAsync: changePassword, isLoading: changingPassword } =
     usePutApiArchitectAuthPassword();
   const [nextAuthLoading, setNextAuthLoading] = useState(false);
-  const { replace } = useRouter()
+  const { replace } = useRouter();
 
   const [conditions, setConditions] = useState({
     atLeast8Chars: false,
@@ -69,7 +69,7 @@ const SetPassword = () => {
           .then((response) => {
             if (response?.ok) {
               console.log("logged in");
-              replace('/dashboard')
+              replace("/dashboard");
             }
           })
           .finally(() => {
