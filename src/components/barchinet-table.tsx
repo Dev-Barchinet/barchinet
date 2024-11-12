@@ -48,7 +48,6 @@ export function BarchinetTable<TData, TValue>({
   data,
   isLoading,
   showSearch = true,
-  showFilter = true,
   paginated = true,
   showColumnChange = true,
   onFilterChanged,

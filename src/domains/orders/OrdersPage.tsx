@@ -270,7 +270,7 @@ const orders: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrdersQueryResult[] = [
 
 const OrdersPage = () => {
   const columnDef = useOrderColumns();
-  const { data, isLoading, refetch } = useGetApiArchitectOrdersGetAll();
+  const { data, isLoading } = useGetApiArchitectOrdersGetAll();
   const ordersList = data?.value?.items;
   console.log(ordersList);
   if (isLoading) return "loading";
