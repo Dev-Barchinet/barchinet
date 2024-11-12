@@ -13,7 +13,6 @@ import { usePostApiArchitectAuthSignUpVerifyOtp } from "@/services/architect-ser
 import { PencilLine } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -30,8 +29,6 @@ const EnterOtp = () => {
   const { email, lifeSpan, hasAccount, setStep, otp, setOtp } =
     useAuthStepperStore();
   const { minutes, seconds, restart, isFinished } = useCountdown(lifeSpan);
-
-  const { replace } = useRouter();
 
   const { mutateAsync: generateOtp, isLoading } =
     usePostApiArchitectAuthEntryGenerateOtp();
@@ -87,22 +84,16 @@ const EnterOtp = () => {
             id,
           } = response.value || {};
           // set user profile
-          const signinResponse = await signIn("LOGIN_USER", {
+          await signIn("LOGIN_USER", {
             firstName,
             lastName,
             email: emailAddress,
             accessToken: token,
             fileAccessCredential,
             id,
-            redirect: false,
+            redirect: true,
+            callbackUrl: "/dashboard",
           });
-
-          console.log({ signinResponse });
-
-          if (signinResponse?.ok) {
-            console.log("sign in succeed");
-            replace("/dashboard");
-          }
         }
       });
     }
