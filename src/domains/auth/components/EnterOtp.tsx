@@ -97,7 +97,10 @@ const EnterOtp = () => {
             redirect: false,
           });
 
+          console.log({ signinResponse });
+
           if (signinResponse?.ok) {
+            console.log("sign in succeed");
             replace("/dashboard");
           }
         }
