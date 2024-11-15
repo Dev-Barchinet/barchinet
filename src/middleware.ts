@@ -7,7 +7,7 @@ import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { Locale, routing } from "./config/i18n/routing";
 
-const protectedPaths = ["/"];
+const protectedPaths = ["/", "/dashboard", "/orders", "/messages"];
 
 function getProtectedRoutes(protectedPaths: string[], locales: Locale[]) {
   let protectedPathsWithLocale = [...protectedPaths];
