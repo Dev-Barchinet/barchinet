@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  SidebarGroup,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -23,24 +22,22 @@ export function NavUser() {
   };
 
   return (
-    <SidebarGroup>
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <Link href={"/contact-us"}>
-            <SidebarMenuButton>
-              <Headset />
-              <p>{t("contact")}</p>
-            </SidebarMenuButton>
-          </Link>
-        </SidebarMenuItem>
-        <SidebarMenuItem>
-          <SidebarMenuButton onClick={handleSignout} disabled={signingOut}>
-            <LogOut color="#E11900" />
-            <p className="text-[#E11900]">{t("logout")}</p>
-            {signingOut && <Loader />}
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <Link href={"/contact-us"}>
+          <SidebarMenuButton>
+            <Headset />
+            <p>{t("contact")}</p>
           </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarGroup>
+        </Link>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
+        <SidebarMenuButton onClick={handleSignout} disabled={signingOut}>
+          <LogOut color="#E11900" />
+          <p className="text-[#E11900]">{t("logout")}</p>
+          {signingOut && <Loader />}
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
   );
 }

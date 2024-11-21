@@ -1,284 +1,54 @@
 "use client";
 
-import { useGetApiArchitectOrdersGetAll } from "@/services/architect-services/api-architect-orders-get-all-get";
-import React from "react";
+import React, { useState } from "react";
 import { useOrderColumns } from "./useOrderColumns";
 import { DataTable } from "@/components/data-table";
-import { SaleOrdersQueriesV1ArchitectsGetOrdersGetOrdersQueryResult } from "@/services/architect-services/api-architect-orders-get-all-get.schemas";
-const orders: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrdersQueryResult[] = [
-  {
-    budget: 100000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 30,
-    id: "1",
-    orderNumber: "ORD123",
-    projectType: "New Build",
-    revisionCount: 2,
-    serviceCount: 5,
-    state: "Completed",
-    title: "Luxury Villa",
-  },
-  {
-    budget: 50000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 45,
-    id: "2",
-    orderNumber: "ORD124",
-    projectType: "Renovation",
-    revisionCount: 1,
-    serviceCount: 3,
-    state: "In Progress",
-    title: "Office Space",
-  },
-  {
-    budget: 75000,
-    buildingCategory: "Industrial",
-    currency: "GBP",
-    deliveryDay: 60,
-    id: "3",
-    orderNumber: "ORD125",
-    projectType: "Expansion",
-    revisionCount: 3,
-    serviceCount: 4,
-    state: "Pending",
-    title: "Factory Extension",
-  },
-  {
-    budget: 120000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 90,
-    id: "4",
-    orderNumber: "ORD126",
-    projectType: "New Build",
-    revisionCount: 2,
-    serviceCount: 6,
-    state: "Completed",
-    title: "Beach House",
-  },
-  {
-    budget: 30000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 40,
-    id: "5",
-    orderNumber: "ORD127",
-    projectType: "Renovation",
-    revisionCount: 1,
-    serviceCount: 2,
-    state: "In Progress",
-    title: "Retail Store",
-  },
-  {
-    budget: 95000,
-    buildingCategory: "Industrial",
-    currency: "GBP",
-    deliveryDay: 70,
-    id: "6",
-    orderNumber: "ORD128",
-    projectType: "Expansion",
-    revisionCount: 4,
-    serviceCount: 5,
-    state: "Pending",
-    title: "Warehouse",
-  },
-  {
-    budget: 110000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 85,
-    id: "7",
-    orderNumber: "ORD129",
-    projectType: "New Build",
-    revisionCount: 3,
-    serviceCount: 7,
-    state: "Completed",
-    title: "Mountain Cabin",
-  },
-  {
-    budget: 45000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 50,
-    id: "8",
-    orderNumber: "ORD130",
-    projectType: "Renovation",
-    revisionCount: 2,
-    serviceCount: 3,
-    state: "In Progress",
-    title: "Restaurant",
-  },
-  {
-    budget: 80000,
-    buildingCategory: "Industrial",
-    currency: "GBP",
-    deliveryDay: 65,
-    id: "9",
-    orderNumber: "ORD131",
-    projectType: "Expansion",
-    revisionCount: 3,
-    serviceCount: 4,
-    state: "Pending",
-    title: "Manufacturing Plant",
-  },
-  {
-    budget: 130000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 95,
-    id: "10",
-    orderNumber: "ORD132",
-    projectType: "New Build",
-    revisionCount: 2,
-    serviceCount: 6,
-    state: "Completed",
-    title: "Penthouse",
-  },
-  {
-    budget: 60000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 55,
-    id: "11",
-    orderNumber: "ORD133",
-    projectType: "Renovation",
-    revisionCount: 1,
-    serviceCount: 3,
-    state: "In Progress",
-    title: "Boutique Hotel",
-  },
-  {
-    budget: 70000,
-    buildingCategory: "Industrial",
-    currency: "GBP",
-    deliveryDay: 75,
-    id: "12",
-    orderNumber: "ORD134",
-    projectType: "Expansion",
-    revisionCount: 4,
-    serviceCount: 5,
-    state: "Pending",
-    title: "Logistics Center",
-  },
-  {
-    budget: 140000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 100,
-    id: "13",
-    orderNumber: "ORD135",
-    projectType: "New Build",
-    revisionCount: 3,
-    serviceCount: 7,
-    state: "Completed",
-    title: "Lake House",
-  },
-  {
-    budget: 35000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 45,
-    id: "14",
-    orderNumber: "ORD136",
-    projectType: "Renovation",
-    revisionCount: 2,
-    serviceCount: 2,
-    state: "In Progress",
-    title: "Cafe",
-  },
-  {
-    budget: 85000,
-    buildingCategory: "Industrial",
-    currency: "GBP",
-    deliveryDay: 80,
-    id: "15",
-    orderNumber: "ORD137",
-    projectType: "Expansion",
-    revisionCount: 3,
-    serviceCount: 4,
-    state: "Pending",
-    title: "Data Center",
-  },
-  {
-    budget: 125000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 90,
-    id: "16",
-    orderNumber: "ORD138",
-    projectType: "New Build",
-    revisionCount: 2,
-    serviceCount: 6,
-    state: "Completed",
-    title: "Country House",
-  },
-  {
-    budget: 40000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 50,
-    id: "17",
-    orderNumber: "ORD139",
-    projectType: "Renovation",
-    revisionCount: 1,
-    serviceCount: 3,
-    state: "In Progress",
-    title: "Bookstore",
-  },
-  {
-    budget: 90000,
-    buildingCategory: "Industrial",
-    currency: "GBP",
-    deliveryDay: 70,
-    id: "18",
-    orderNumber: "ORD140",
-    projectType: "Expansion",
-    revisionCount: 4,
-    serviceCount: 5,
-    state: "Pending",
-    title: "Power Plant",
-  },
-  {
-    budget: 115000,
-    buildingCategory: "Residential",
-    currency: "USD",
-    deliveryDay: 85,
-    id: "19",
-    orderNumber: "ORD141",
-    projectType: "New Build",
-    revisionCount: 3,
-    serviceCount: 7,
-    state: "Completed",
-    title: "Farmhouse",
-  },
-  {
-    budget: 55000,
-    buildingCategory: "Commercial",
-    currency: "EUR",
-    deliveryDay: 55,
-    id: "20",
-    orderNumber: "ORD142",
-    projectType: "Renovation",
-    revisionCount: 2,
-    serviceCount: 3,
-    state: "In Progress",
-    title: "Gym",
-  },
-];
+import { useInfiniteQuery } from "react-query";
+import { getApiArchitectOrdersGetAll } from "@/services/architect-services/api-architect-orders-get-all-get";
+import { useTranslations } from "next-intl";
 
 const OrdersPage = () => {
   const columnDef = useOrderColumns();
-  const { data, isLoading } = useGetApiArchitectOrdersGetAll();
-  const ordersList = data?.value?.items;
-  console.log(ordersList);
-  if (isLoading) return "loading";
+  const t = useTranslations("Orders");
+  const [searchKey, setSearchKey] = useState("");
+
+  const { data, isLoading, isFetching, isFetchingNextPage, fetchNextPage } =
+    useInfiniteQuery(["orders", searchKey], {
+      queryFn: ({ pageParam }) =>
+        getApiArchitectOrdersGetAll({
+          PageIndex: pageParam,
+          PageSize: 5,
+          SearchKey: searchKey,
+        }),
+      keepPreviousData: true,
+    });
+
+  const ordersList = data
+    ? // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+      data.pages.flatMap((page) => page.value?.items!)
+    : [];
+
+  const handlePagination = async () => {
+    await fetchNextPage();
+  };
+
+  const handleSearchOrders = (searchTerm: string) => {
+    console.log("searchTerm");
+    setSearchKey(searchTerm);
+  };
+
   return (
-    <div className="max-w-full max-h-full border border-red overflow-auto">
-      {/* {Boolean(ordersList) && ordersList && ordersList?.length > 0 && ( */}
-        <DataTable data={orders} columns={columnDef} />
-      {/* )} */}
+    <div className="px-3">
+      <DataTable
+        data={ordersList}
+        columns={columnDef}
+        fetchNextPage={handlePagination}
+        isLoading={isLoading || isFetching}
+        isFetchingNextPage={isFetchingNextPage}
+        onSearchChanged={handleSearchOrders}
+        tableTitle={t("tableTitle")}
+        hasMore={ordersList.length < Number(data?.pages[0].value?.totalCount)}
+      />
     </div>
   );
 };

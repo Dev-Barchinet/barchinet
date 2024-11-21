@@ -26,7 +26,7 @@ export function useOrderColumns(): ColumnDef<SaleOrdersQueriesV1ArchitectsGetOrd
       header: t("buildingCategory"),
     },
     {
-      accessorKey: "projectType",
+      accessorKey: "architectureStyleTitle",
       header: t("architectureStyle"),
     },
     {

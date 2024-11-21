@@ -36,7 +36,7 @@ export default function DashboardLayout({
       <SidebarProvider>
         <DashboardNavbar />
         <SidebarInset>
-          <div className="overflow-auto pb-10">
+          <div className="overflow-auto max-w-full h-[calc(100%-63px)] flex flex-col mb-[63px]">
             <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" />

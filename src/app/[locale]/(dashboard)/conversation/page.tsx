@@ -1,7 +1,8 @@
+import { ConversationWrapper } from "@/domains/conversation/ConversationWrapper";
 import React from "react";
 
 const conversation = () => {
-  return <div>conversation</div>;
+  return <ConversationWrapper />;
 };
 
 export default conversation;
