@@ -81,6 +81,7 @@
   },
   "Orders": {
     "tableTitle": "Orders",
+    "more": "More",
     "TableHeaders": {
       "orderNumber": "Order Number",
       "title": "Project Name",

@@ -1,7 +1,6 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
+import { OrderListOrderState } from "./components/OrderListOrderState";
 
 import { SaleOrdersQueriesV1ArchitectsGetOrdersGetOrdersQueryResult } from "@/services/architect-services/api-architect-orders-get-all-get.schemas";
 
@@ -34,8 +33,11 @@ export function useOrderColumns(): ColumnDef<SaleOrdersQueriesV1ArchitectsGetOrd
       header: t("serviceCount"),
     },
     {
-      accessorKey: "state",
+      accessorKey: "statusTitle",
       header: t("state"),
+      cell: ({ row }) => {
+        return <OrderListOrderState orderData={row.original} />;
+      },
     },
   ];
 }

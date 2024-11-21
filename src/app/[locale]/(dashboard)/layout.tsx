@@ -1,12 +1,5 @@
 "use client";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { BarchinetBreadCrumb } from "@/components/bread-crumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -16,7 +9,7 @@ import {
 import useAuthStepperStore from "@/core/stores/useAuthStore";
 import DashboardHeader from "@/domains/dashboard/components/DashboardHeader";
 import { DashboardNavbar } from "@/domains/dashboard/components/DashboardNavbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardLayout({
   children,
@@ -25,38 +18,39 @@ export default function DashboardLayout({
 }) {
   const { resetStepper } = useAuthStepperStore();
 
+  // Track the sidebar mode (expanded or collapsed)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+
   useEffect(() => {
     resetStepper();
   }, [resetStepper]);
-  
+
+  const handleSidebarToggle = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+
   return (
     <div className="flex flex-col max-h-screen overflow-hidden max-w-[100dvw]">
       <DashboardHeader />
       <Separator />
-      <SidebarProvider>
+      <SidebarProvider defaultOpen={false}>
         <DashboardNavbar />
         <SidebarInset>
-          <div className="overflow-auto max-w-full h-[calc(100%-63px)] flex flex-col mb-[63px]">
+          <div className="max-w-full h-[calc(100%-63px)] flex flex-col mb-[63px]">
             <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2 px-4">
-                <SidebarTrigger className="-ml-1" />
+                <SidebarTrigger
+                  className="-ml-1"
+                  onClick={handleSidebarToggle}
+                />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">
-                        Building Your Application
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
+                <BarchinetBreadCrumb />
               </div>
             </header>
-            {children}
+            {/* Dynamically adjust width based on the sidebar's state */}
+            <div className={`flex-1 overflow-y-auto ${isSidebarCollapsed ? 'max-w-[calc(100dvw-47px)]' : 'max-w-[calc(100dvw-255px)]'}`}>
+              {children}
+            </div>
           </div>
         </SidebarInset>
       </SidebarProvider>

@@ -39,24 +39,24 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   showColumnFilter?: boolean;
-  fetchNextPage: (pageIndex: number, pageSize: number) => Promise<void>;
+  handlePagination: (step: "next" | "previous") => Promise<void>;
   hasMore: boolean;
   onSearchChanged?: (searchedValue: string) => void;
   isLoading: boolean;
-  isFetchingNextPage: boolean;
   tableTitle: string;
+  pageIndex: number;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   showColumnFilter = false,
-  fetchNextPage,
+  handlePagination,
   hasMore,
   onSearchChanged,
   isLoading,
   tableTitle,
-  isFetchingNextPage,
+  pageIndex,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -78,8 +78,6 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    pageCount: -1,
-    manualPagination: true,
   });
 
   const handleSearch = useCallback(
@@ -90,7 +88,6 @@ export function DataTable<TData, TValue>({
     [onSearchChanged]
   );
 
-  // Use useMemo to persist the debounced function
   const debouncedSearch = useMemo(
     () => debounce(handleSearch, 400),
     [handleSearch]
@@ -102,30 +99,19 @@ export function DataTable<TData, TValue>({
     debouncedSearch(value);
   };
 
-  const handlePageChange = async (nextPage: number) => {
-    const pageSize = table.getState().pagination.pageSize;
-
-    if (nextPage !== table.getState().pagination.pageIndex) {
-      await fetchNextPage(nextPage, pageSize);
-      table.setPageIndex(nextPage);
-    }
-  };
-
   return (
-    <>
-      {/* Filters */}
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col">
+      <div className="flex items-center justify-between max-w-full">
         <div className="flex items-start justify-between pb-4 w-full">
           <p className="title-2">{tableTitle}</p>
           <Input
-            placeholder="Search by name..."
+            placeholder="Search by order number..."
             value={searchValue}
             onChange={handleInputChange}
             className="max-w-sm"
           />
         </div>
 
-        {/* Column visibility */}
         {showColumnFilter && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -156,82 +142,87 @@ export function DataTable<TData, TValue>({
         )}
       </div>
 
-      {/* Table */}
-      <Table className="border-collapse border border-gray-200">
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {isLoading || isFetchingNextPage ? (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                Loading...
-              </TableCell>
-            </TableRow>
-          ) : table?.getRowModel()?.rows?.length ? (
-            table?.getRowModel()?.rows?.map((row) => (
-              <TableRow
-                key={row?.id}
-                data-state={row?.getIsSelected() && "selected"}
-              >
-                {row?.getVisibleCells()?.map((cell) => (
-                  <TableCell key={cell?.id}>
-                    {flexRender(
-                      cell?.column?.columnDef?.cell,
-                      cell?.getContext()
-                    )}
-                  </TableCell>
-                ))}
+      <div className="max-w-full overflow-x-auto">
+        <Table className="border-collapse border border-gray-200">
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead
+                      key={header.id}
+                      className="min-w-fit text-nowrap"
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns?.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  Loading...
+                </TableCell>
+              </TableRow>
+            ) : table?.getRowModel()?.rows?.length ? (
+              table?.getRowModel()?.rows?.map((row) => (
+                <TableRow
+                  key={row?.id}
+                  data-state={row?.getIsSelected() && "selected"}
+                >
+                  {row?.getVisibleCells()?.map((cell) => (
+                    <TableCell key={cell?.id} className="min-w-fit text-nowrap">
+                      {flexRender(
+                        cell?.column?.columnDef?.cell,
+                        cell?.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns?.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center max-w-md justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"
-          onClick={() =>
-            handlePageChange(table.getState().pagination.pageIndex - 1)
-          }
-          disabled={!table.getCanPreviousPage()}
+          onClick={() => handlePagination("previous")}
+          disabled={pageIndex === 0}
         >
           Previous
         </Button>
         <Button
           variant="outline"
           size="sm"
-          onClick={() =>
-            handlePageChange(table.getState().pagination.pageIndex + 1)
-          }
+          onClick={() => handlePagination("next")}
           disabled={isLoading || !hasMore}
         >
           Next
         </Button>
       </div>
-    </>
+    </div>
   );
 }
