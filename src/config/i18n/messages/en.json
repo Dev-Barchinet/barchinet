@@ -155,5 +155,13 @@
     "conversations": "Conversation",
     "noMessageFound": "No Messages Yet",
     "noMessageCaption": "Please accept a contract and start chat with an employer"
+  },
+  "Order": {
+    "OrderHeader": {
+      "orderNumber": "Order number",
+      "agreement": "The agreement",
+      "chat": "Chat with employer",
+      "accept": "Accept"
+    }
   }
 }
