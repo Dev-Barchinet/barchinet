@@ -8,33 +8,34 @@ import { OrderDetailTitle } from "./features/OrderDetailTitle";
 import { OrderInformation } from "./features/OrderInformation";
 import { OrderFiles } from "./features/OrderFiles";
 import { OrderPayments } from "./features/OrderPayements/OrderPayments";
+import "./orderStyles.css"
 
 export const OrderDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetApiArchitectOrdersGetId(id, {
-    query: { enabled: Boolean(id) },
-  });
+    const { id } = useParams<{ id: string }>();
+    const { data, isLoading } = useGetApiArchitectOrdersGetId(id, {
+        query: { enabled: Boolean(id) },
+    });
 
-  const orderData = data?.value;
+    const orderData = data?.value;
 
-  if (isLoading) {
-    return "loading ...";
-  }
+    if (isLoading) {
+        return "loading ...";
+    }
 
-  if (!orderData || !id) return "we are fucked up";
+    if (!orderData || !id) return "we are fucked up";
 
-  return (
-    <Tabs defaultValue="orderInfo" className="p-4">
-      <OrderDetailTitle orderData={orderData} />
-      <TabsContent value="orderInfo">
-        <OrderInformation id={id} />
-      </TabsContent>
-      <TabsContent value="files">
-        <OrderFiles id={id} />
-      </TabsContent>
-      <TabsContent value="payment">
-        <OrderPayments id={id} />
-      </TabsContent>
-    </Tabs>
-  );
+    return (
+        <Tabs defaultValue="orderInfo" className="p-4">
+            <OrderDetailTitle orderData={orderData} />
+            <TabsContent value="orderInfo">
+                <OrderInformation id={id} orderData={orderData} />
+            </TabsContent>
+            <TabsContent value="files">
+                <OrderFiles id={id} />
+            </TabsContent>
+            <TabsContent value="payment">
+                <OrderPayments id={id} />
+            </TabsContent>
+        </Tabs>
+    );
 };
