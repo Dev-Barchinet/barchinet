@@ -178,6 +178,25 @@
             "services": "Services",
             "more": "More",
             "showFilesLinks": "Show Files"
+        },
+        "OrderProjectAddress": {
+            "title": "Title",
+            "address": "Address",
+            "country": "Country",
+            "province": "Province"
+        },
+        "OrderProjectPricing": {
+            "revisionCount": "Revision Count",
+            "estimate": "Number of days for delivery",
+            "currency": "Currency",
+            "price": "Price"
+        },
+        "OrderItems": {
+            "landDimention": "Land Dimention",
+            "length": "Length",
+            "width": "Width",
+            "buildingPartTitle": "Building Part",
+            "orderIndex": "{index, plural, =0 {first building part} other {# 'nd building part}}"
         }
     }
 }

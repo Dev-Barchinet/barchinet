@@ -10,7 +10,7 @@ export const OrderInformationItem = (props: OrderInformationItemProps) => {
   return (
     <div className="flex items-stretch gap-3 p-3">
       <div className="relative min-h-full">
-        <div className="w-8 h-8 rounded-[50%] bg-[#1EA170]"></div>
+        <div className="w-6 h-6 rounded-[50%] bg-[#1EA170]"></div>
         <div className="absolute bottom-0 top-0 w-[1px] h-[calc(100%+30px)] bg-[#1EA170] left-[50%] -translate-x-[0.5px]"></div>
       </div>
       <div className="flex flex-col gap-4 items-start">

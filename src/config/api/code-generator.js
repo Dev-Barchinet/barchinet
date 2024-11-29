@@ -90,6 +90,8 @@ const codeGenerator = async (baseURL, idsBaseURL, destination) => {
       name: "architect",
     };
 
+    console.log(definition)
+
 
     const response = await axios.get(definition.url);
     console.log(response)

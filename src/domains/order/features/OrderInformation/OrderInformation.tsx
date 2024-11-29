@@ -23,10 +23,13 @@ export const OrderInformation = (props: OrderInformationProps) => {
         useGetApiArchitectOrdersAsBulitPlansOrderId(id, {
             query: { enabled: Boolean(id) },
         });
+
+    console.log({ asBuiltPlanFiles });
     const { data: inspirationFiles, isLoading: fetchingInspirationItems } =
         useGetApiArchitectOrdersInspirationItemsOrderId(id, {
             query: { enabled: Boolean(id) },
         });
+    console.log({ inspirationFiles });
     const { data: orderItems, isLoading: fetchingOrderItems } =
         useGetApiArchitectOrdersItemsOrderIdItems(id, {
             query: { enabled: Boolean(id) },
@@ -56,17 +59,22 @@ export const OrderInformation = (props: OrderInformationProps) => {
             />
             <OrderInformationItem
                 title={t("projectAddress")}
-                OrderInformationBody={<OrderProjectAddress orderData={orderData} />}
+                OrderInformationBody={
+                    <OrderProjectAddress orderData={orderData} />
+                }
             />
             <OrderInformationItem
                 title={t("projectPricing")}
-                OrderInformationBody={<OrderProjectPricing orderData={orderData} />}
+                OrderInformationBody={
+                    <OrderProjectPricing orderData={orderData} />
+                }
             />
             <OrderInformationItem
                 title={t("orderItems")}
                 OrderInformationBody={
                     <OrderItems
                         orderItems={orderItems}
+                        orderData={orderData}
                         fetchingOrderItems={fetchingOrderItems}
                     />
                 }
