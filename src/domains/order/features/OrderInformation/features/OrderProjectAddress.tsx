@@ -14,19 +14,19 @@ export const OrderProjectAddress = (props: OrderProjectAddressProps) => {
         <div className="flex itesm-center gap-4 flex-wrap">
             <OrderInformationItemSimpleChild
                 title={t("title")}
-                body={orderData.locationTitle}
+                body={orderData.location?.title}
             />
             <OrderInformationItemSimpleChild
                 title={t("address")}
-                body={orderData.locationAddress}
+                body={orderData.location?.address}
             />
             <OrderInformationItemSimpleChild
                 title={t("country")}
-                body={orderData.locationCountry}
+                body={orderData.location?.countryTitle}
             />
             <OrderInformationItemSimpleChild
                 title={t("province")}
-                body={orderData.locationState}
+                body={orderData.location?.stateTitle}
             />
         </div>
     );

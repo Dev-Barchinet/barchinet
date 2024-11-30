@@ -16,7 +16,6 @@ export const OrderItems = (props: OrderItemsProps) => {
     const { fetchingOrderItems, orderItems, orderData } = props;
     const t = useTranslations("Order.OrderItems");
 
-    console.log({ orderItems });
 
     if (fetchingOrderItems) return <Skeleton className="w-full h-[60px]" />;
     return (

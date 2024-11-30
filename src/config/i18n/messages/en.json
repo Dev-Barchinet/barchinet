@@ -191,6 +191,9 @@
             "currency": "Currency",
             "price": "Price"
         },
+        "OrderInspirationFiles": {
+            "inspirationFiles": "Inspiration Files"
+        },
         "OrderItems": {
             "landDimention": "Land Dimention",
             "length": "Length",

@@ -26,8 +26,7 @@ const CheckEmail = () => {
     usePostApiArchitectAuthEntryGenerateOtp();
 
   const handleGoogleAuth = async () => {
-    const response = await signIn("google");
-    console.log(response);
+     await signIn("google");
   };
 
   const onSubmit = (data: FormValues) => {

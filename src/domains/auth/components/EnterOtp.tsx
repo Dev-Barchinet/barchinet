@@ -6,7 +6,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import useAuthStepperStore, { AuthStep } from "@/core/stores/useAuthStore";
-import useCountdown from "@/hooks/useCountDown";
+import useCountdown from "@/core/hooks/useCountDown";
 import { usePostApiArchitectAuthEntryGenerateOtp } from "@/services/architect-services/api-architect-auth-entry-generate-otp-post";
 import { usePostApiArchitectAuthSignInVerifyOtp } from "@/services/architect-services/api-architect-auth-sign-in-verify-otp-post";
 import { usePostApiArchitectAuthSignUpVerifyOtp } from "@/services/architect-services/api-architect-auth-sign-up-verify-otp-post";

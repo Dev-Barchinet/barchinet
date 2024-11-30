@@ -74,7 +74,6 @@ const ResetPassword = (props: ResetPasswordProps) => {
                     })
                         .then((response) => {
                             if (response?.ok) {
-                                console.log("logged in");
                                 redirect("/dashboard");
                             }
                         })

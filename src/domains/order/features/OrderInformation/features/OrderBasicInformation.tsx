@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { TishtarResponseGenericListSaleOrdersQueriesV1ArchitectsGetAsBuiltPlansGetAsBuiltPlansQueryResult } from "@/services/architect-services/api-architect-orders-as-bulit-plans-{orderId}-get.schemas";
 import { Skeleton } from "@/components/ui/skeleton";
+import FileDisplay from "@/domains/order/components/FileDisplay";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 type OrderBasicInformationProps = {
     orderData: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult;
@@ -17,25 +19,16 @@ export const OrderBasicInformation = (props: OrderBasicInformationProps) => {
     const { orderData, fetchingAsBuiltPlanFiles, asBuiltPlanFiles } = props;
     const t = useTranslations("Order.OrderBasicInformation");
     const [showServices, setShowServices] = useState(false);
-    const [showAsBuiltFiles, setShowAsBuiltFiles] = useState(false);
 
     const asBuiltPlanFilesValue = asBuiltPlanFiles?.value;
-    const orderServices = orderData.services
-    
-    console.log(orderServices)
-
-    console.log(asBuiltPlanFilesValue);
+    const orderServices = orderData.services;
 
     const handleShowServices = () => {
         setShowServices(true);
     };
 
-    const handleShowAsBuiltFiles = () => {
-        setShowAsBuiltFiles(true);
-    };
-
     return (
-        <div className="flex items-center flex-wrap gap-4">
+        <div className="flex items-start flex-wrap gap-4">
             <OrderInformationItemSimpleChild
                 title={t("projectName")}
                 body={orderData?.title || "Order Title"}
@@ -63,7 +56,6 @@ export const OrderBasicInformation = (props: OrderBasicInformationProps) => {
                             {orderData?.services?.length || 0} {t("services")}
                         </p>
                         <Button
-                           
                             variant="link"
                             className="w-[50px] h-5"
                             onClick={handleShowServices}
@@ -81,18 +73,32 @@ export const OrderBasicInformation = (props: OrderBasicInformationProps) => {
                     <OrderInformationItemSimpleChild
                         title={t("asBuiltPlanFiles")}
                         body={
-                            <div className="flex items-center justify-center gap-2">
-                                <Button
-                                    variant="link"
-                                    className="w-[50px] h-5"
-                                    onClick={handleShowAsBuiltFiles}
-                                >
-                                    {t("showFilesLinks")} <ChevronRight />
-                                </Button>
-                            </div>
+                            <FileDisplay
+                                files={
+                                    asBuiltPlanFilesValue?.map(
+                                        (file) => file.path || ""
+                                    ) || []
+                                }
+                            />
                         }
                     />
                 )}
+
+            <Dialog
+                open={showServices}
+                onOpenChange={() => setShowServices(false)}
+            >
+                <DialogContent>
+                    <DialogTitle>Services</DialogTitle>
+                    <div className="order-detail-box p-3">
+                        {orderServices?.map((service) => (
+                            <p key={service.serviceId} className="title-3">
+                                {service.serviceTitle}
+                            </p>
+                        ))}
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

@@ -8,14 +8,12 @@ const nextAuthOptions: NextAuthOptions = {
   providers: [googleProvider, signUpProvider, signInProvider],
   callbacks: {
     async jwt({ token, user }) {
-      console.log({ token, user });
       if (user) {
         token = { ...user };
       }
       return token;
     },
     async session({ session, token }) {
-      console.log({ session, token });
       if (token) {
         session.user.id = token.id as string;
         session.user.firstName = token.firstName;

@@ -36,7 +36,6 @@ const customInstance = async <T>(
     ...options,
   })
     .then((response) => {
-      console.log({ response });
       const data = response.data;
       if (data.isFailed) {
         throw new Error(data.errors[0]);
@@ -45,7 +44,6 @@ const customInstance = async <T>(
       }
     })
     .catch((error) => {
-      console.log(error);
       if (typeof window !== "undefined" && Number(error?.response?.status)) {
         const expectedError =
           error?.response?.status &&
@@ -60,14 +58,12 @@ const customInstance = async <T>(
             error?.code === "exception" ||
             error?.code === "ERR_BAD_REQUEST"
           ) {
-            console.log("there");
             toast(error?.response?.data?.errors?.[0]);
           }
         } else {
           toast("There was an error on server please try again later!");
         }
       } else if (error) {
-        console.log("gere");
         if (Axios.isCancel(error)) {
           return error;
         }

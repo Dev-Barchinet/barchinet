@@ -68,7 +68,6 @@ const SetPassword = () => {
         })
           .then((response) => {
             if (response?.ok) {
-              console.log("logged in");
               replace("/dashboard");
             }
           })

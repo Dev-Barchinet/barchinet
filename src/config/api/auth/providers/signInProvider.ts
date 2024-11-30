@@ -26,7 +26,6 @@ export const signInProvider = Credentials({
   async authorize(credentials: UserCredentials | undefined): Promise<User | null> {
     if (credentials) {
       // Logging credentials for debugging; replace with actual sign-up logic
-      console.log("Received credentials:", credentials);
 
       // Assuming a user object is created/verified successfully
       const user: User = {

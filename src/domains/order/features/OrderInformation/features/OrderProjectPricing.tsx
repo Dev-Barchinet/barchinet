@@ -24,13 +24,13 @@ export const OrderProjectPricing = (props: OrderProjectPricingProps) => {
             <OrderInformationItemSimpleChild
                 title={t("currency")}
                 body={
-                    orderData.finalPriceCurrencyTitle ||
+                    orderData.agreement?.finalPriceCurrencyTitle ||
                     "Make A Deal With Employer"
                 }
             />
             <OrderInformationItemSimpleChild
                 title={t("price")}
-                body={orderData.finalPrice || "Make A Deal With Employer"}
+                body={orderData.agreement?.finalPrice || "Make A Deal With Employer"}
             />
         </div>
     );

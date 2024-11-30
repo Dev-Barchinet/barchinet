@@ -82,7 +82,6 @@ export function DataTable<TData, TValue>({
 
   const handleSearch = useCallback(
     (searchTerm: string) => {
-      console.log("debounce search");
       onSearchChanged?.(searchTerm);
     },
     [onSearchChanged]

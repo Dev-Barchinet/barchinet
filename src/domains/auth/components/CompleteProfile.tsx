@@ -21,11 +21,9 @@ const CompleteProfile = () => {
     usePutApiArchitectAccountsFullName();
 
   const onSubmit = ({ firstName, lastName }: FormValues) => {
-    console.log({firstName})
     updateProfile({
       data: { firstName, lastName },
     }).then((response) => {
-      console.log(response)
       if (response.isSuccess) {
         setStep(AuthStep.SET_PASSWORD);
       }
