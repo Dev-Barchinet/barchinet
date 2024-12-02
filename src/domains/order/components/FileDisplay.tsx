@@ -74,7 +74,7 @@ const FileDisplay = ({ files }: FileDisplayProps) => {
       <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>
         <DialogContent>
           <DialogTitle className="text-lg font-semibold mb-4">Files</DialogTitle>
-          <div className="max-w-[29rem]">
+          <div className="max-w-[29rem] min-h-fit">
             <div className="w-full relative h-[300px]">
               <Image
                 alt="file"
@@ -94,7 +94,7 @@ const FileDisplay = ({ files }: FileDisplayProps) => {
               </Button>
               <div
                 ref={thumbnailsRef}
-                className="flex items-center flex-1 max-w-[calc(29rem-80px)] gap-2 overflow-x-auto"
+                className="flex items-center flex-1 max-w-[calc(29rem-80px)] gap-2 overflow-x-auto min-h-fit"
               >
                 {files.map((file, index) => (
                   <div

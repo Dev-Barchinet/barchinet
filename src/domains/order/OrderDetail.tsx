@@ -25,13 +25,13 @@ export const OrderDetail = () => {
     if (!orderData || !id) return "we are fucked up";
 
     return (
-        <Tabs defaultValue="orderInfo" className="p-4">
+        <Tabs defaultValue="orderInfo" className="p-4 h-full">
             <OrderDetailTitle orderData={orderData} />
             <TabsContent value="orderInfo">
                 <OrderInformation id={id} orderData={orderData} />
             </TabsContent>
-            <TabsContent value="files">
-                <OrderFiles id={id} />
+            <TabsContent value="files" className="h-full">
+                <OrderFiles orderData={orderData} />
             </TabsContent>
             <TabsContent value="payment">
                 <OrderPayments id={id} />

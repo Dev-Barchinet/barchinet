@@ -1,209 +1,223 @@
 {
-    "HomePage": {
-        "title": "Hello world!",
-        "about": "Go to the about page"
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "Auth": {
+    "CheckEmail": {
+      "login": "Login",
+      "title": "Enter your email below to create your account",
+      "emailRequired": "Email is required",
+      "emailPlaceHolder": "name@example.com",
+      "validEmailError": "Please enter a valid email address",
+      "signInGoogle": "Sign in with Google",
+      "signInLinedin": "Sign in with Linkedin",
+      "getCode": "Get The Code",
+      "or": "OR CONTINUE WITH"
     },
-    "Auth": {
-        "CheckEmail": {
-            "login": "Login",
-            "title": "Enter your email below to create your account",
-            "emailRequired": "Email is required",
-            "emailPlaceHolder": "name@example.com",
-            "validEmailError": "Please enter a valid email address",
-            "signInGoogle": "Sign in with Google",
-            "signInLinedin": "Sign in with Linkedin",
-            "getCode": "Get The Code",
-            "or": "OR CONTINUE WITH"
-        },
-        "EnterOtp": {
-            "otpCode": "Otp Code",
-            "enterOtp": "Enter the 6-digit code sent to the email below",
-            "getCode": "Get the code again: ",
-            "resend": "resend",
-            "confirm": "Confirm",
-            "loginWithPassword": "Login with password",
-            "otpSent": "Otp sent successfully please check your email!"
-        },
-        "CompleteProfile": {
-            "createAccount": "Create an account",
-            "completeInformation": "Please complete your information.",
-            "namePlaceHolder": "name",
-            "familyNamePlaceHolder": "Family Name",
-            "signup": "Sign Up",
-            "login": "Login",
-            "or": "or"
-        },
-        "LoginWithPassword": {
-            "passwordPlaceholder": "Password",
-            "loginWithPassword": "Login with password",
-            "enterPassword": "Enter the password",
-            "forgotPassword": "Forgot Password",
-            "confirm": "Confirm"
-        },
-        "ResetPassword": {
-            "resetPassword": "Reset Password",
-            "reEnterPassword": "Please enter your password",
-            "passwordPlaceholder": "Password",
-            "login": "Login",
-            "atLeast8Chars": "At least 8 characters",
-            "upperCaseLowerCase": "Includes upper and lower case English letters",
-            "useNumbers": "Use numbers",
-            "resetPasswordSuccess": "Password Reset Successfully"
-        },
-        "SetPassword": {
-            "setPassword": "Set Password",
-            "reEnterPassword": "Please enter your password",
-            "passwordPlaceholder": "Password",
-            "atLeast8Chars": "At least 8 characters",
-            "upperCaseLowerCase": "Includes upper and lower case English letters",
-            "useNumbers": "Use numbers"
-        },
-        "RestPasswordOtp": {
-            "otpCode": "Otp Code",
-            "enterOtp": "Enter the 6-digit code sent to your email",
-            "getCode": "Get the code again: ",
-            "resend": "resend",
-            "confirm": "Confirm",
-            "otpSent": "Otp sent successfully please check your email!",
-            "login": "Login with password"
-        }
+    "EnterOtp": {
+      "otpCode": "Otp Code",
+      "enterOtp": "Enter the 6-digit code sent to the email below",
+      "getCode": "Get the code again: ",
+      "resend": "resend",
+      "confirm": "Confirm",
+      "loginWithPassword": "Login with password",
+      "otpSent": "Otp sent successfully please check your email!"
     },
-    "Dashboard": {
-        "Navbar": {
-            "dashboard": "Dashboard",
-            "orders": "Orders",
-            "conversation": "Conversation",
-            "account": "Account",
-            "portfolio": "Portfolio Management",
-            "logout": "Logout",
-            "contact": "Contact Support"
-        }
+    "CompleteProfile": {
+      "createAccount": "Create an account",
+      "completeInformation": "Please complete your information.",
+      "namePlaceHolder": "name",
+      "familyNamePlaceHolder": "Family Name",
+      "signup": "Sign Up",
+      "login": "Login",
+      "or": "or"
     },
-    "Orders": {
-        "tableTitle": "Orders",
-        "more": "More",
-        "TableHeaders": {
-            "orderNumber": "Order Number",
-            "title": "Project Name",
-            "projectType": "Project Type",
-            "buildingCategory": "Building Category",
-            "architectureStyle": "Architecture Style",
-            "serviceCount": "Services Count",
-            "state": "State"
-        }
+    "LoginWithPassword": {
+      "passwordPlaceholder": "Password",
+      "loginWithPassword": "Login with password",
+      "enterPassword": "Enter the password",
+      "forgotPassword": "Forgot Password",
+      "confirm": "Confirm"
     },
-    "Profile": {
-        "profile": "Account",
-        "profileTab": "Account Information",
-        "financialAccount": "Financial Account",
-        "addFinancialAccount": "Add Financial account",
-        "Form": {
-            "profileUpdated": "Profile Updated Successfully",
-            "privateInformation": "Private Information",
-            "name": "Name",
-            "password": "Password",
-            "namePlaceholder": "Enter name",
-            "familyName": "Family Name",
-            "familyNamePlaceholder": "Enter family name",
-            "birthDate": "Birth Date",
-            "birthDatePlaceholder": "YYYY-MM-DD",
-            "gender": "Gender",
-            "genderPlaceholder": "Select gender",
-            "genderFemale": "Female",
-            "genderMale": "Male",
-            "genderUnspecified": "Unspecified",
-            "mobileNumber": "Mobile Number",
-            "mobileNumberPlaceholder": "Enter mobile number",
-            "email": "Email",
-            "emailPlaceholder": "Enter email",
-            "passportNumber": "Passport Number",
-            "passportNumberPlaceholder": "Enter passport number",
-
-            "address": "Address",
-            "country": "Country",
-            "countryPlaceholder": "Select country",
-            "state": "State",
-            "statePlaceholder": "Select state",
-            "city": "City",
-            "cityPlaceholder": "Select city",
-            "addressPlaceholder": "Enter address",
-
-            "socialMedia": "Social Media",
-            "linkedin": "LinkedIn",
-            "linkedinPlaceholder": "Enter LinkedIn profile URL",
-            "instagram": "Instagram",
-            "instagramPlaceholder": "Enter Instagram profile URL",
-
-            "save": "Save"
-        },
-        "Avatar": {
-            "imageDeleteSucceed": "Image Deleted Successfully",
-            "imageUpdateSucceed": "Profile Image Updated Successfully"
-        },
-        "ResetPassword": {
-            "password": "Password",
-            "passwordPlaceholder": "Enter password",
-            "resetPassword": "Reset Password"
-        },
-        "Logout": {
-            "logout": "Log Out",
-            "logoutConfirm": "are you sure you want to log out?",
-            "cancel": "Cancel"
-        }
+    "ResetPassword": {
+      "resetPassword": "Reset Password",
+      "reEnterPassword": "Please enter your password",
+      "passwordPlaceholder": "Password",
+      "login": "Login",
+      "atLeast8Chars": "At least 8 characters",
+      "upperCaseLowerCase": "Includes upper and lower case English letters",
+      "useNumbers": "Use numbers",
+      "resetPasswordSuccess": "Password Reset Successfully"
     },
-    "Messages": {
-        "conversations": "Conversation",
-        "noMessageFound": "No Messages Yet",
-        "noMessageCaption": "Please accept a contract and start chat with an employer"
+    "SetPassword": {
+      "setPassword": "Set Password",
+      "reEnterPassword": "Please enter your password",
+      "passwordPlaceholder": "Password",
+      "atLeast8Chars": "At least 8 characters",
+      "upperCaseLowerCase": "Includes upper and lower case English letters",
+      "useNumbers": "Use numbers"
     },
-    "Order": {
-        "OrderHeader": {
-            "orderNumber": "Order number",
-            "agreement": "The agreement",
-            "chat": "Chat with employer",
-            "accept": "Accept"
-        },
-        "orderBasicInformation": "Project Basic Information",
-        "inspirationDocuments": "Inspirational Documents",
-        "projectAddress": "Project Address",
-        "projectPricing": "Project Details And Pricing",
-        "orderItems": "Order Items",
-        "OrderBasicInformation": {
-            "projectName": "Project Name",
-            "projectType": "Project Type",
-            "buildingCategory": "Building Category",
-            "architectureStyle": "Architecture Style",
-            "servicesCount": "Services Count",
-            "asBuiltPlanFiles": "As-Built Plans Files",
-            "services": "Services",
-            "more": "More",
-            "showFilesLinks": "Show Files"
-        },
-        "OrderProjectAddress": {
-            "title": "Title",
-            "address": "Address",
-            "country": "Country",
-            "province": "Province"
-        },
-        "OrderProjectPricing": {
-            "revisionCount": "Revision Count",
-            "estimate": "Number of days for delivery",
-            "currency": "Currency",
-            "price": "Price"
-        },
-        "OrderInspirationFiles": {
-            "inspirationFiles": "Inspiration Files",
-            "fileLinks": "Links"
-        },
-        "OrderItems": {
-            "landDimention": "Land Dimention",
-            "length": "Length",
-            "width": "Width",
-            "height": "Height",
-            "files": "Files",
-            "description": "Description",
-            "buildingPartTitle": "Building Part",
-            "orderIndex": "{index, plural, =1 {first building part} other {#'nd building part}}"
-        }
+    "RestPasswordOtp": {
+      "otpCode": "Otp Code",
+      "enterOtp": "Enter the 6-digit code sent to your email",
+      "getCode": "Get the code again: ",
+      "resend": "resend",
+      "confirm": "Confirm",
+      "otpSent": "Otp sent successfully please check your email!",
+      "login": "Login with password"
     }
+  },
+  "Dashboard": {
+    "Navbar": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "conversation": "Conversation",
+      "account": "Account",
+      "portfolio": "Portfolio Management",
+      "logout": "Logout",
+      "contact": "Contact Support"
+    }
+  },
+  "Orders": {
+    "tableTitle": "Orders",
+    "more": "More",
+    "TableHeaders": {
+      "orderNumber": "Order Number",
+      "title": "Project Name",
+      "projectType": "Project Type",
+      "buildingCategory": "Building Category",
+      "architectureStyle": "Architecture Style",
+      "serviceCount": "Services Count",
+      "state": "State"
+    }
+  },
+  "Profile": {
+    "profile": "Account",
+    "profileTab": "Account Information",
+    "financialAccount": "Financial Account",
+    "addFinancialAccount": "Add Financial account",
+    "Form": {
+      "profileUpdated": "Profile Updated Successfully",
+      "privateInformation": "Private Information",
+      "name": "Name",
+      "password": "Password",
+      "namePlaceholder": "Enter name",
+      "familyName": "Family Name",
+      "familyNamePlaceholder": "Enter family name",
+      "birthDate": "Birth Date",
+      "birthDatePlaceholder": "YYYY-MM-DD",
+      "gender": "Gender",
+      "genderPlaceholder": "Select gender",
+      "genderFemale": "Female",
+      "genderMale": "Male",
+      "genderUnspecified": "Unspecified",
+      "mobileNumber": "Mobile Number",
+      "mobileNumberPlaceholder": "Enter mobile number",
+      "email": "Email",
+      "emailPlaceholder": "Enter email",
+      "passportNumber": "Passport Number",
+      "passportNumberPlaceholder": "Enter passport number",
+
+      "address": "Address",
+      "country": "Country",
+      "countryPlaceholder": "Select country",
+      "state": "State",
+      "statePlaceholder": "Select state",
+      "city": "City",
+      "cityPlaceholder": "Select city",
+      "addressPlaceholder": "Enter address",
+
+      "socialMedia": "Social Media",
+      "linkedin": "LinkedIn",
+      "linkedinPlaceholder": "Enter LinkedIn profile URL",
+      "instagram": "Instagram",
+      "instagramPlaceholder": "Enter Instagram profile URL",
+
+      "save": "Save"
+    },
+    "Avatar": {
+      "imageDeleteSucceed": "Image Deleted Successfully",
+      "imageUpdateSucceed": "Profile Image Updated Successfully"
+    },
+    "ResetPassword": {
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "resetPassword": "Reset Password"
+    },
+    "Logout": {
+      "logout": "Log Out",
+      "logoutConfirm": "are you sure you want to log out?",
+      "cancel": "Cancel"
+    }
+  },
+  "Messages": {
+    "conversations": "Conversation",
+    "noMessageFound": "No Messages Yet",
+    "noMessageCaption": "Please accept a contract and start chat with an employer"
+  },
+  "Order": {
+    "OrderHeader": {
+      "orderNumber": "Order number",
+      "agreement": "The agreement",
+      "chat": "Chat with employer",
+      "accept": "Accept"
+    },
+    "orderBasicInformation": "Project Basic Information",
+    "inspirationDocuments": "Inspirational Documents",
+    "projectAddress": "Project Address",
+    "projectPricing": "Project Details And Pricing",
+    "orderItems": "Order Items",
+    "OrderBasicInformation": {
+      "projectName": "Project Name",
+      "projectType": "Project Type",
+      "buildingCategory": "Building Category",
+      "architectureStyle": "Architecture Style",
+      "servicesCount": "Services Count",
+      "asBuiltPlanFiles": "As-Built Plans Files",
+      "services": "Services",
+      "more": "More",
+      "showFilesLinks": "Show Files"
+    },
+    "OrderProjectAddress": {
+      "title": "Title",
+      "address": "Address",
+      "country": "Country",
+      "province": "Province"
+    },
+    "OrderProjectPricing": {
+      "revisionCount": "Revision Count",
+      "estimate": "Number of days for delivery",
+      "currency": "Currency",
+      "price": "Price"
+    },
+    "OrderInspirationFiles": {
+      "inspirationFiles": "Inspiration Files",
+      "fileLinks": "Links"
+    },
+    "OrderItems": {
+      "landDimention": "Land Dimention",
+      "length": "Length",
+      "width": "Width",
+      "height": "Height",
+      "files": "Files",
+      "description": "Description",
+      "buildingPartTitle": "Building Part",
+      "orderIndex": "{index, plural, =1 {first building part} other {#'nd building part}}"
+    },
+    "OrderAgreement": {
+      "theAgreeeMent": "The agreement",
+      "accept": "Accept",
+      "cancel": "Cancel",
+      "terms": "Accept terms and conditions",
+      "succeed": "Agreement Accepted."
+    },
+    "OrderFiles": {
+      "empty": "Empty",
+      "emptyError": "you can not upload any file untill you accept the project",
+      "accept": "Accept",
+      "draft": "Drafts",
+      "finalFiles": "Final Files"
+    }
+  }
 }

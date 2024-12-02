@@ -4,11 +4,13 @@ import { useRouter } from "@/config/i18n/routing";
 import { SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult } from "@/services/architect-services/api-architect-orders-get-{id}-get.schemas";
 import { ArrowLeft, File } from "lucide-react";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useState } from "react";
+import { AcceptOrderModal } from "../components/AcceptOrderModal";
 
 type OrderDetailTitleProps = {
   orderData: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult;
 };
+
 
 const getOrderStatus = (orderAcceptedByArchitect: boolean) => {
   if (orderAcceptedByArchitect) {
@@ -23,12 +25,15 @@ const getOrderStatus = (orderAcceptedByArchitect: boolean) => {
   };
 };
 
+
+
 export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
   const { orderData } = props;
+  const [showAcceptOrderModal, setShowAcceptOrderModal] = useState(false);
   const { replace } = useRouter();
   const t = useTranslations("Order.OrderHeader");
 
-  const orderAcceptedByArchitect = false;
+  const orderAcceptedByArchitect = Boolean(orderData.canAssignInitialDocuments);
   const orderStatus = getOrderStatus(orderAcceptedByArchitect);
 
   return (
@@ -71,11 +76,20 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
           </>
         )}
         {!orderAcceptedByArchitect && (
-          <Button className="gap-2" variant="default">
+          <Button
+            className="gap-2"
+            variant="default"
+            onClick={() => {
+              setShowAcceptOrderModal(true);
+            }}
+          >
             {t("accept")}
           </Button>
         )}
       </div>
+      <AcceptOrderModal
+        {...{ showAcceptOrderModal, setShowAcceptOrderModal }}
+      />
     </div>
   );
 };
