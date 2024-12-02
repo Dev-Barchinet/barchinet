@@ -192,14 +192,18 @@
             "price": "Price"
         },
         "OrderInspirationFiles": {
-            "inspirationFiles": "Inspiration Files"
+            "inspirationFiles": "Inspiration Files",
+            "fileLinks": "Links"
         },
         "OrderItems": {
             "landDimention": "Land Dimention",
             "length": "Length",
             "width": "Width",
+            "height": "Height",
+            "files": "Files",
+            "description": "Description",
             "buildingPartTitle": "Building Part",
-            "orderIndex": "{index, plural, =0 {first building part} other {# 'nd building part}}"
+            "orderIndex": "{index, plural, =1 {first building part} other {#'nd building part}}"
         }
     }
 }

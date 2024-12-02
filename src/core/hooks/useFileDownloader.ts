@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 export const useFileDownloader = (
-    fileAccessToken: string,
+    fileAccessToken2: string,
     accessToken: string
 ) => {
     const [isDownloading, setIsDownloading] = useState(false);
+    const fileAccessToken = "JT+z3kODuWQwILDLiufryKcD1R+mp3ZKECCa6Q4eEIwxaGsSJUw0x6CJBSxpNSWyW8VvBnX1Pi1Q3ub/khmjkk002rL9k2u9lnSWE/JMFYg="
 
     const downloadFile = async (fileUrl: string, fileName: string) => {
         try {
