@@ -1,7 +1,15 @@
-import React from 'react'
+import React from "react";
+import { OrderFileUploader } from "./components/OrderFileUploader";
 
 export const OrderDraftFiles = () => {
   return (
-    <div className='order-detail-box w-full p-4'>OrderDraftFiles</div>
-  )
-}
+    <div className="flex flex-col w-full">
+      <OrderFileUploader
+        currentRevision={1}
+        maximumRevisionCount={53}
+        uploading={false}
+        onFileChange={console.log}
+      />
+    </div>
+  );
+};

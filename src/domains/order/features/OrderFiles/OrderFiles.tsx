@@ -19,7 +19,7 @@ export const OrderFiles = (props: OrderFileProps) => {
 
   const orderAcceptedByArchitect = Boolean(orderData.canAssignInitialDocuments);
 
-  if (orderAcceptedByArchitect) {
+  if (!orderAcceptedByArchitect) {
     return (
       <div className="w-full h-full gap-2 flex-1 flex flex-col items-center justify-center">
         <Podcast className="text-[#6A6A6A] mb-2" />
