@@ -1,14 +1,15 @@
 import FileUploader from "@/components/file-uploader";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { FileImage, Trash } from "lucide-react";
 import React, { useState } from "react";
 
 type OrderFileUploaderProps = {
   currentRevision: number;
   maximumRevisionCount: number;
-  onFileChange: (files: File[]) => void;
+  onFileChange: (files: File[]) => Promise<boolean>;
   onSubmit?: (files: File[]) => void;
-  onDeleteFile?: (index: File[]) => void;
+  onDeleteFile?: (index: number) => Promise<boolean>;
   onCancel?: () => void;
   uploading: boolean;
 };
@@ -58,22 +59,38 @@ export const OrderFileUploader = (props: OrderFileUploaderProps) => {
     ...restProps
   } = props;
   const [files, setFiles] = useState<File[]>([]);
+  const [uploadingNewFile, setUploadingNewFile] = useState(false);
+  const [deletingFile, setDeletingFile] = useState(false);
 
   const handleDraftFileChange = (files: File[]) => {
+    setUploadingNewFile(true);
     setFiles(files);
-    onFileChange(files);
-  };
 
-  const handleDeleteDraftFile = (files: File[]) => {
-    setFiles(files);
-    onDeleteFile?.(files);
+    onFileChange(files)
+      .then((res) => {
+        if (!res) {
+          setFiles((prevFiles) => prevFiles.slice(0, prevFiles.length - 1));
+        }
+      })
+      .finally(() => {
+        setUploadingNewFile(false);
+      });
   };
 
   const handleDeleteFile = (index: number) => {
-    setFiles((prev) => {
-      const updatedFiles = prev.filter((_, i) => i !== index);
-      return updatedFiles;
-    });
+    setDeletingFile(true);
+    onDeleteFile?.(index)
+      .then((response) => {
+        if (response) {
+          setFiles((prev) => {
+            const updatedFiles = prev.filter((_, i) => i !== index);
+            return updatedFiles;
+          });
+        }
+      })
+      .finally(() => {
+        setDeletingFile(false);
+      });
   };
 
   return (
@@ -89,7 +106,6 @@ export const OrderFileUploader = (props: OrderFileUploaderProps) => {
         <FileUploader
           showReveiwer={false}
           onFileChanged={handleDraftFileChange}
-          onDeleteFile={handleDeleteDraftFile}
           acceptedFormats="*"
           currentFiles={files}
           {...restProps}
@@ -114,13 +130,21 @@ export const OrderFileUploader = (props: OrderFileUploaderProps) => {
                     }}
                     className="max-w-[130px] max-h-[130px] relative"
                   >
-                    {renderFilePreview(file, index)}
-                    <Button
-                      className="absolute bottom-1 left-1 max-w-[30px]"
-                      onClick={() => handleDeleteFile(index)}
-                    >
-                      <Trash />
-                    </Button>
+                    {uploadingNewFile && index === files.length - 1 && (
+                      <Skeleton className="w-32 h-32" />
+                    )}
+                    {!(uploadingNewFile && index === files.length - 1) && (
+                      <>
+                        {renderFilePreview(file, index)}
+                        <Button
+                          className="absolute bottom-1 left-1 max-w-[30px]"
+                          loading={index === files.length - 1 && deletingFile}
+                          onClick={() => handleDeleteFile(index)}
+                        >
+                          <Trash />
+                        </Button>
+                      </>
+                    )}
                   </div>
                 ))}
               </div>

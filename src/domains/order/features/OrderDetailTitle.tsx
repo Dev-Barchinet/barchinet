@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "@/config/i18n/routing";
-import { SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult } from "@/services/architect-services/api-architect-orders-get-{id}-get.schemas";
 import { ArrowLeft, File } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { AcceptOrderModal } from "../components/AcceptOrderModal";
+import { SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult } from "@/services/architect-services/api-architect-orders-get-{id}-get.schemas";
 
 type OrderDetailTitleProps = {
   orderData: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult;
@@ -35,6 +35,9 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
 
   const orderAcceptedByArchitect = Boolean(orderData.canAssignInitialDocuments);
   const orderStatus = getOrderStatus(orderAcceptedByArchitect);
+
+  const agreementId = orderData.agreement?.id
+
 
   return (
     <div className="flex items-center justify-between">
@@ -75,7 +78,7 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
             <Button variant="secondary">{t("chat")}</Button>
           </>
         )}
-        {!orderAcceptedByArchitect && (
+        {!orderAcceptedByArchitect &&  orderData.pendingAgreementReview &&(
           <Button
             className="gap-2"
             variant="default"
@@ -88,7 +91,7 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
         )}
       </div>
       <AcceptOrderModal
-        {...{ showAcceptOrderModal, setShowAcceptOrderModal }}
+        {...{ showAcceptOrderModal, setShowAcceptOrderModal, agreementId }}
       />
     </div>
   );

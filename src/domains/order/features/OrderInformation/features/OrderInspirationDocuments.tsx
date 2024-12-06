@@ -6,6 +6,8 @@ import { OrderInformationItemSimpleChild } from "../components/OrderInformationI
 import FileDisplay from "@/domains/order/components/FileDisplay";
 import { useTranslations } from "next-intl";
 import { OrderFileLinkWrapper } from "../components/OrderFileLinkWrapper";
+import { useGetApiArchitectOrdersInspirationItemsDownloadZip } from "@/services/architect-services/api-architect-orders-inspiration-items-download-zip-get";
+import { useParams } from "next/navigation";
 
 type OrderInspirationDocumentsProps = {
   orderData: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult;
@@ -18,6 +20,37 @@ export const OrderInspirationDocuments = (
 ) => {
   const { fetchingInspirationItems, inspirationFiles } = props;
   const t = useTranslations("Order.OrderInspirationFiles");
+  const { id } = useParams();
+
+  const { isLoading, refetch } =
+    useGetApiArchitectOrdersInspirationItemsDownloadZip(
+      { OrderId: String(id) },
+      { query: { enabled: false }, request: { responseType: 'arraybuffer' } }
+    );
+
+  const handleDownloadFiles = () => {
+    refetch().then((response) => {
+      const data = response.data;
+      console.log(response);
+      if (data) {
+        const blob = new Blob([data], { type: "application/octet-stream" });
+        const url = URL.createObjectURL(blob);
+
+        // Create a temporary link element
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `inspiration_files_${id}.zip`; // Use a meaningful file name
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up the URL object and the link element
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } else {
+        console.error("No data available for download");
+      }
+    });
+  };
 
   const files = inspirationFiles?.value?.files;
   const links = inspirationFiles?.value?.links;
@@ -30,7 +63,11 @@ export const OrderInspirationDocuments = (
         <OrderInformationItemSimpleChild
           title={t("inspirationFiles")}
           body={
-            <FileDisplay files={files?.map((file) => file.value || "") || []} />
+            <FileDisplay
+              files={files?.map((file) => file.value || "") || []}
+              onDownloadAll={handleDownloadFiles}
+              isDownloading={isLoading}
+            />
           }
         />
       )}

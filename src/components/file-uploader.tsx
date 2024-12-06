@@ -137,6 +137,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         onClick={() => setIsDialogOpen(true)}
         className="max-w-[150px] ml-auto flex"
         loading={uploading}
+        disabled={!files || files.length === 0}
       >
         Submit
       </Button>

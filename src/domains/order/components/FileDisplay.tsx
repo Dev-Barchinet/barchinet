@@ -8,13 +8,19 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 type FileDisplayProps = {
   files: string[];
+  onDownloadAll: () => void;
+  isDownloading: boolean;
 };
 
-const FileDisplay = ({ files }: FileDisplayProps) => {
+const FileDisplay = ({
+  files,
+  isDownloading,
+  onDownloadAll,
+}: FileDisplayProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const { data: session } = useSession();
-  const { downloadFile, isDownloading, getFileLink } = useFileDownloader(
+  const { getFileLink } = useFileDownloader(
     session?.user.fileAccessCredential,
     session?.user.accessToken
   );
@@ -22,9 +28,7 @@ const FileDisplay = ({ files }: FileDisplayProps) => {
   const thumbnailsRef = useRef<HTMLDivElement>(null);
 
   const handleDownloadAll = () => {
-    files.forEach((file, index) => {
-      downloadFile(file, `file-${index + 1}`);
-    });
+    onDownloadAll();
   };
 
   const isNextDisabled = files.length - 1 === activeIndex;
@@ -73,14 +77,16 @@ const FileDisplay = ({ files }: FileDisplayProps) => {
 
       <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>
         <DialogContent>
-          <DialogTitle className="text-lg font-semibold mb-4">Files</DialogTitle>
+          <DialogTitle className="text-lg font-semibold mb-4">
+            Files
+          </DialogTitle>
           <div className="max-w-[29rem] min-h-fit">
             <div className="w-full relative h-[300px]">
               <Image
                 alt="file"
                 src={getFileLink(files[activeIndex])}
                 fill
-                className="max-h-[300px] h-[300px] object-contain"
+                className="max-h-[300px] h-[300px] w-full object-contain"
               />
             </div>
             <div className="flex items-center justify-between w-full max-w-full gap-2 my-2">

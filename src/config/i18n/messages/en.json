@@ -218,6 +218,12 @@
       "accept": "Accept",
       "draft": "Drafts",
       "finalFiles": "Final Files"
+    },
+    "OrderOlderFiles": {
+      "olderUploadedFiles": "Older uploaded file",
+      "downloadAll": "Download All",
+      "youHaveComments": "You have Commennt on this revision",
+      "viewComments": "View Commennt"
     }
   }
 }
