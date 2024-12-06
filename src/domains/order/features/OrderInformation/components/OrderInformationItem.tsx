@@ -20,9 +20,9 @@ export const OrderInformationItem = (props: OrderInformationItemProps) => {
           style={{ backgroundColor: grayMode ? "#E0E0E2" : "#1EA170" }}
         ></div>
       </div>
-      <div className="flex flex-col flex-1 gap-4 items-start">
+      <div className="flex flex-col flex-1 gap-4 items-start max-w-[calc(100%-1.5rem)]">
         <div
-          className="flex items-center justify-center py-1 px-4 rounded-full"
+          className="flex items-center justify-center py-1 px-4 rounded-full max-w-full"
           style={{
             backgroundColor: grayMode ? "#E0E0E2" : "rgba(30, 161, 112, 0.20)",
           }}
