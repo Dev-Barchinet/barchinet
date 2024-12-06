@@ -130,12 +130,9 @@ export const AvatarEdit = (props: AvatarEditProps) => {
                         <DialogTitle>Upload new picture</DialogTitle>
                     </DialogHeader>
                     <FileUploader
+                        disabled={false}
                         acceptedFormats="image/*"
-                        onFileChanged={(files) => console.log(files)}
                         onSubmit={handleFileSubmit} // Upload logic
-                        onDeleteFile={(index) =>
-                            console.log(`File ${index} deleted`)
-                        }
                         onCancel={() => console.log("Upload cancelled")}
                         uploading={isUploading}
                         multiple={false} // Set to false to allow only one file

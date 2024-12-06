@@ -25,12 +25,7 @@ export const OrderFiles = (props: OrderFileProps) => {
 
     const revisions = data?.value;
 
-    const orderShowableToArchitect = Boolean(
-        orderData.pendingAgreementReview ||
-            (orderData.canAssignFinalDocuments
-                ? true
-                : orderData.canAssignInitialDocuments)
-    );
+    const orderShowableToArchitect = !Boolean(orderData.pendingAgreementReview);
 
     if (!orderShowableToArchitect) {
         return (
@@ -67,25 +62,30 @@ export const OrderFiles = (props: OrderFileProps) => {
     return (
         <div className="w-full">
             <OrderInformationItem
+                grayMode={!Boolean(orderData.canAssignInitialDocuments)}
                 title={t("draft")}
                 OrderInformationBody={
                     <OrderDraftFiles
                         refetchRevisions={refetch}
                         id={id}
-                        disabled={false}
+                        disabled={!Boolean(orderData.canAssignInitialDocuments)}
                         isLoading={isLoading}
                         revisions={revisions?.filter(
                             (revision) => revision.revisionType === 1
                         )}
+                        maximumRevisionCount={Number(orderData.revisionCount)}
                     />
                 }
             />
             <OrderInformationItem
-                grayMode
+                grayMode={!Boolean(orderData.canAssignFinalDocuments)}
                 title={t("finalFiles")}
                 OrderInformationBody={
                     <OrderDraftFiles
-                        disabled={true}
+                        maximumRevisionCount={Number(
+                            orderData.finalRevisionCount
+                        )}
+                        disabled={!Boolean(orderData.canAssignFinalDocuments)}
                         refetchRevisions={refetch}
                         id={id}
                         isLoading={isLoading}

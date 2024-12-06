@@ -5,7 +5,8 @@ export const useFileDownloader = (
     accessToken: string
 ) => {
     const [isDownloading, setIsDownloading] = useState(false);
-    const fileAccessToken = "JT+z3kODuWQwILDLiufryKcD1R+mp3ZKECCa6Q4eEIwxaGsSJUw0x6CJBSxpNSWyW8VvBnX1Pi1Q3ub/khmjkk002rL9k2u9lnSWE/JMFYg="
+
+    const fileAccessToken = fileAccessToken2 
 
     const downloadFile = async (fileUrl: string, fileName: string) => {
         try {
@@ -18,8 +19,6 @@ export const useFileDownloader = (
                     },
                 }
             );
-
-            console.log(response)
 
             if (!response.ok) {
                 throw new Error("Failed to download file");

@@ -16,14 +16,15 @@ type OrderDraftFilesProps = {
     id: string;
     disabled: boolean;
     refetchRevisions: () => void;
+    maximumRevisionCount: number
 };
 
 export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
-    const { revisions, isLoading, id, refetchRevisions, disabled } = props;
+    const { revisions, isLoading, id, refetchRevisions, disabled, maximumRevisionCount } = props;
     const lastRevision = revisions?.[(revisions?.length || 1) - 1];
     const [description, setDescription] = useState("");
 
-    const { mutateAsync: uploadDraftFile } =
+    const { mutateAsync: uploadDraftFile, isLoading: uploadingFiles } =
         usePostApiArchitectOrdersRevisionsFile();
 
     const { mutateAsync: submitRevision, isLoading: submittingRevision } =
@@ -31,7 +32,7 @@ export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
 
     const handleCreateRevision = (files: File[]) => {
         submitRevision({
-            data: { title: "title1", description, orderId: id },
+            data: { title: "title1", description, orderId: id, version: 1 },
         }).then(async (response) => {
             if (response.isSuccess) {
                 for (let index = 0; index < files.length; index++) {
@@ -42,6 +43,12 @@ export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
                             OrderId: id,
                             RevisionId: response.value,
                         },
+                    }).then((response) => {
+                        if (response.isSuccess) {
+                            toast.success(
+                                `file ${index} uploaded successfully`
+                            );
+                        }
                     });
                 }
                 toast.success("Submitted.");
@@ -55,14 +62,12 @@ export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
     }
 
     return (
-        <div
-            className="flex flex-col w-full"
-        >
+        <div className="flex flex-col w-full">
             <OrderFileUploader
-                currentRevision={1}
-                maximumRevisionCount={53}
-                disabled={disabled}
-                uploading={submittingRevision}
+                currentRevision={Number(revisions?.length) + 1}
+                maximumRevisionCount={maximumRevisionCount}
+                disabled={disabled || submittingRevision || uploadingFiles}
+                uploading={submittingRevision || uploadingFiles}
                 onSubmit={handleCreateRevision}
                 description={description}
                 setDescription={setDescription}

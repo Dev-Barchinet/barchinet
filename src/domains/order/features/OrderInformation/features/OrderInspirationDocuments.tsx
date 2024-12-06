@@ -31,7 +31,6 @@ export const OrderInspirationDocuments = (
   const handleDownloadFiles = () => {
     refetch().then((response) => {
       const data = response.data;
-      console.log(response);
       if (data) {
         const blob = new Blob([data], { type: "application/octet-stream" });
         const url = URL.createObjectURL(blob);
