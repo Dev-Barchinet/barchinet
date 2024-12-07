@@ -5,7 +5,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { usePostApiArchitectContractorAgreementsReview } from "@/services/architect-services/api-architect-contractor-agreements-review-post";
 import { useGetApiArchitectContractorAgreementsId } from "@/services/architect-services/api-architect-contractor-agreements-{id}-get";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -13,10 +12,11 @@ type AcceptOrderModalProps = {
   showAcceptOrderModal: boolean;
   setShowAcceptOrderModal: (newValue: boolean) => void;
   agreementId?: string;
+  refetchOrderDetail: () => void
 };
 
 export const AcceptOrderModal = (props: AcceptOrderModalProps) => {
-  const { showAcceptOrderModal, setShowAcceptOrderModal, agreementId } = props;
+  const { showAcceptOrderModal, setShowAcceptOrderModal, agreementId, refetchOrderDetail } = props;
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const t = useTranslations("Order.OrderAgreement");
   const { data, isLoading } = useGetApiArchitectContractorAgreementsId(
@@ -25,7 +25,6 @@ export const AcceptOrderModal = (props: AcceptOrderModalProps) => {
       query: { enabled: Boolean(agreementId) && showAcceptOrderModal },
     }
   );
-  const { refresh } = useRouter();
 
   const { mutateAsync, isLoading: pendingAcceptAgreement } =
     usePostApiArchitectContractorAgreementsReview();
@@ -43,7 +42,7 @@ export const AcceptOrderModal = (props: AcceptOrderModalProps) => {
       if (response.isSuccess) {
         toast.success(t("succeed"));
         setShowAcceptOrderModal(false);
-        refresh();
+        refetchOrderDetail();
       }
     });
   };
@@ -58,8 +57,7 @@ export const AcceptOrderModal = (props: AcceptOrderModalProps) => {
         {isLoading && <Skeleton className="w-[100px] h-[100px]" />}
         {!isLoading && (
           <div className="w-full flex flex-col gap-4">
-            <p className="max-w-lg text-wrap max-h-[380px] overflow-y-auto body-1 text-text-muted-foreground">
-              {agreement?.contract}
+            <p className="max-w-lg text-wrap max-h-[380px] overflow-y-auto body-1 text-text-muted-foreground" dangerouslySetInnerHTML={{ __html: agreement?.contract || 'No Contract' }}>
             </p>
             <div className="items-top flex space-x-2">
               <Checkbox

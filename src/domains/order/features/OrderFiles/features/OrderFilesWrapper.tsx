@@ -16,11 +16,18 @@ type OrderDraftFilesProps = {
     id: string;
     disabled: boolean;
     refetchRevisions: () => void;
-    maximumRevisionCount: number
+    maximumRevisionCount: number;
 };
 
 export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
-    const { revisions, isLoading, id, refetchRevisions, disabled, maximumRevisionCount } = props;
+    const {
+        revisions,
+        isLoading,
+        id,
+        refetchRevisions,
+        disabled,
+        maximumRevisionCount,
+    } = props;
     const lastRevision = revisions?.[(revisions?.length || 1) - 1];
     const [description, setDescription] = useState("");
 
@@ -30,31 +37,35 @@ export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
     const { mutateAsync: submitRevision, isLoading: submittingRevision } =
         usePostApiArchitectOrdersRevisions();
 
-    const handleCreateRevision = (files: File[]) => {
-        submitRevision({
-            data: { title: "title1", description, orderId: id, version: 1 },
-        }).then(async (response) => {
-            if (response.isSuccess) {
-                for (let index = 0; index < files.length; index++) {
-                    const file = files[index];
-                    await uploadDraftFile({
-                        data: {
-                            File: file,
-                            OrderId: id,
-                            RevisionId: response.value,
-                        },
-                    }).then((response) => {
-                        if (response.isSuccess) {
-                            toast.success(
-                                `file ${index} uploaded successfully`
-                            );
-                        }
-                    });
-                }
-                toast.success("Submitted.");
-                refetchRevisions();
-            }
+    const handleCreateRevision = async (files: File[]) => {
+        let result = false;
+        const response = await submitRevision({
+            data: { description, orderId: id },
         });
+        if (response.isSuccess) {
+            for (let index = 0; index < files.length; index++) {
+                const file = files[index];
+                await uploadDraftFile({
+                    data: {
+                        File: file,
+                        OrderId: id,
+                        RevisionId: response.value,
+                    },
+                }).then((response) => {
+                    if (response.isSuccess) {
+                        toast.success(
+                            `file ${index + 1} uploaded successfully`
+                        );
+                    }
+                });
+            }
+            toast.success("Submitted.");
+            refetchRevisions();
+            setDescription("");
+            result = true;
+        }
+        console.log({ result });
+        return result;
     };
 
     if (isLoading) {

@@ -12,7 +12,7 @@ import "./orderStyles.css"
 
 export const OrderDetail = () => {
     const { id } = useParams<{ id: string }>();
-    const { data, isLoading } = useGetApiArchitectOrdersGetId(id, {
+    const { data, isLoading, refetch } = useGetApiArchitectOrdersGetId(id, {
         query: { enabled: Boolean(id) },
     });
 
@@ -26,12 +26,12 @@ export const OrderDetail = () => {
 
     return (
         <Tabs defaultValue="orderInfo" className="p-4 h-full">
-            <OrderDetailTitle orderData={orderData} />
+            <OrderDetailTitle orderData={orderData} refetchOrderDetail={() => refetch()} />
             <TabsContent value="orderInfo">
                 <OrderInformation id={id} orderData={orderData} />
             </TabsContent>
             <TabsContent value="files" className="h-full">
-                <OrderFiles orderData={orderData} />
+                <OrderFiles orderData={orderData} refetchOrderDetail={() => refetch()} />
             </TabsContent>
             <TabsContent value="payment">
                 <OrderPayments id={id} />

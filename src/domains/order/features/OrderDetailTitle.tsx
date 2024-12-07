@@ -9,6 +9,7 @@ import { SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult } from 
 
 type OrderDetailTitleProps = {
     orderData: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult;
+    refetchOrderDetail: () => void;
 };
 
 const getOrderStatus = (orderAcceptedByArchitect: boolean) => {
@@ -25,7 +26,7 @@ const getOrderStatus = (orderAcceptedByArchitect: boolean) => {
 };
 
 export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
-    const { orderData } = props;
+    const { orderData, refetchOrderDetail } = props;
     const [showAcceptOrderModal, setShowAcceptOrderModal] = useState(false);
     const { replace, push } = useRouter();
     const t = useTranslations("Order.OrderHeader");
@@ -99,6 +100,7 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
             </div>
             <AcceptOrderModal
                 {...{
+                    refetchOrderDetail,
                     showAcceptOrderModal,
                     setShowAcceptOrderModal,
                     agreementId,

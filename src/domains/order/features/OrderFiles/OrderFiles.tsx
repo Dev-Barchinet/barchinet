@@ -11,10 +11,11 @@ import { useParams } from "next/navigation";
 
 type OrderFileProps = {
     orderData: SaleOrdersQueriesV1ArchitectsGetOrdersGetOrderDetailQueryResult;
+    refetchOrderDetail: () => void
 };
 
 export const OrderFiles = (props: OrderFileProps) => {
-    const { orderData } = props;
+    const { orderData, refetchOrderDetail } = props;
     const [showAcceptOrderModal, setShowAcceptOrderModal] = useState(false);
     const t = useTranslations("Order.OrderFiles");
 
@@ -53,7 +54,7 @@ export const OrderFiles = (props: OrderFileProps) => {
                     </Button>
                 )}
                 <AcceptOrderModal
-                    {...{ showAcceptOrderModal, setShowAcceptOrderModal }}
+                    {...{ showAcceptOrderModal, setShowAcceptOrderModal, refetchOrderDetail }}
                 />
             </div>
         );

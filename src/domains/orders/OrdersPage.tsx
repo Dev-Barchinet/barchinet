@@ -35,7 +35,7 @@ const OrdersPage = () => {
     };
 
     return (
-        <div className="px-3">
+        <div className="px-3 mt-1">
             <DataTable
                 data={ordersList}
                 columns={columnDef}

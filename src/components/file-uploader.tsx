@@ -12,7 +12,7 @@ import { XIcon } from "lucide-react";
 interface FileUploaderProps {
     acceptedFormats: string; // A comma-separated list of accepted file formats (e.g., "image/*,video/*")
     onFileChanged?: (files: File[]) => void; // Custom file change handler
-    onSubmit?: (files: File[]) => void; // Custom submit handler
+    onSubmit?: (files: File[]) => Promise<boolean> | void; // Custom submit handler
     onDeleteFile?: (index: File[]) => void; // Custom file delete handler
     onCancel?: () => void; // Custom cancel handler
     multiple?: boolean; // Whether multiple files can be selected
@@ -73,9 +73,17 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setIsDialogOpen(false);
-        if (onSubmit) onSubmit(files);
+        if (onSubmit) {
+            const response = await onSubmit(files);
+            console.log({ response, isBoolean: typeof response === "boolean" });
+            if (typeof response === "boolean" && response) {
+                console.log('files')
+                setFiles([]);
+                onFileChanged?.([]);
+            }
+        }
     };
 
     const renderFilePreview = (file: File, index: number) => {

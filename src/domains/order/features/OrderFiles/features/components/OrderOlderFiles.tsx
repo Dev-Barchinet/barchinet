@@ -49,6 +49,10 @@ export const OrderOlderFiles = (props: OrderOlderFilesProps) => {
         session?.user.accessToken
     );
 
+    const indexOfActiveRevision = revisionList
+        .map((item) => item.id)
+        .indexOf(activeRevision?.id);
+
     return (
         <div className="order-detail-box max-w-full w-full p-4 mt-4">
             <div className="flex items-center justify-between mb-2">
@@ -61,15 +65,16 @@ export const OrderOlderFiles = (props: OrderOlderFilesProps) => {
                         value={activeRevision.id}
                     >
                         <SelectTrigger className="max-w-[150px] ">
-                            {activeRevision.title || "Select Revisison"}
+                            {"Revision" + (indexOfActiveRevision + 1) ||
+                                "last Revisison"}
                         </SelectTrigger>
                         <SelectContent>
-                            {revisionList.map((revision) => (
+                            {revisionList.map((revision, index) => (
                                 <SelectItem
                                     value={revision.id || ""}
                                     key={revision.id}
                                 >
-                                    <p>{revision.title}</p>
+                                    <p>Revision {index + 1}</p>
                                 </SelectItem>
                             ))}
                         </SelectContent>

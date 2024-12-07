@@ -8,7 +8,7 @@ type OrderFileUploaderProps = {
     currentRevision: number;
     maximumRevisionCount: number;
     onFileChange?: (files: File[]) => Promise<boolean>;
-    onSubmit?: (files: File[]) => void;
+    onSubmit?: (files: File[]) => Promise<boolean>;
     onDeleteFile?: (index: number) => Promise<boolean>;
     onCancel?: () => void;
     uploading: boolean;
@@ -67,6 +67,7 @@ export const OrderFileUploader = (props: OrderFileUploaderProps) => {
     const [files, setFiles] = useState<File[]>([]);
 
     const handleDraftFileChange = (files: File[]) => {
+        console.log({ files });
         setFiles(files);
         onFileChange?.(files);
     };
@@ -85,7 +86,10 @@ export const OrderFileUploader = (props: OrderFileUploaderProps) => {
             <p className="title-5-5 mt-2">
                 your uploading revision{" "}
                 <span className="title-4">
-                    {currentRevision}/{maximumRevisionCount}
+                    {currentRevision > maximumRevisionCount
+                        ? maximumRevisionCount
+                        : currentRevision}
+                    /{maximumRevisionCount}
                 </span>
             </p>
             <div className="my-2 flex flex-col gap-2">
