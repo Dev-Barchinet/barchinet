@@ -32,7 +32,7 @@ const ConversationLayout = (props: ConversationLayoutProps) => {
             <div className="h-full conversation-layout-border max-h-full overflow-y-auto">
               <ConversationList chats={data?.value} />
             </div>
-            <div className="flex-1 h-full conversation-layout-border">{children}</div>
+            <div className="flex-1 h-full max-w-[calc(100%-320px)] conversation-layout-border">{children}</div>
           </>
         )}
       </div>

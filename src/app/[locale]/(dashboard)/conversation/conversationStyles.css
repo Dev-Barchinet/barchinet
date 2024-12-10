@@ -2,5 +2,20 @@
   border-radius: 12px;
   border: 1px solid #e0e0e0;
   background: #fff;
-  padding: 16px;
+}
+
+
+/* Define the keyframes for the rotate animation */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Assign the animation to the class */
+.rotate-animation {
+  animation: rotate 2s linear infinite;
 }

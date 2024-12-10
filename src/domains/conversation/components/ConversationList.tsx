@@ -1,6 +1,7 @@
 import { SocialChatsQueriesV1SharedGetChatsGetChatsQueryResult } from "@/services/architect-services/api-architect-chats-list-get.schemas";
 import React from "react";
 import { NoConversationFound } from "./NoConversationFound";
+import { ChatItem } from "./ChatItem";
 
 type ConversationListProps = {
   chats?:
@@ -15,5 +16,16 @@ export const ConversationList = (props: ConversationListProps) => {
     return <NoConversationFound />;
   }
 
-  return <div>ConversationList</div>;
+  return (
+    <div className="min-w-[300px] flex flex-col gap-4 max-h-full overflow-y-auto">
+      {chats.map((chat, index) => (
+        <>
+          <ChatItem chat={chat} key={chat.chatId} />
+          {index !== chats.length - 1 && (
+            <div className="bg-border h-[1px] w-full" />
+          )}
+        </>
+      ))}
+    </div>
+  );
 };
