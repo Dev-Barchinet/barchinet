@@ -1,21 +1,57 @@
 .conversation-layout-border {
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
-  background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
 }
-
 
 /* Define the keyframes for the rotate animation */
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Assign the animation to the class */
 .rotate-animation {
-  animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+}
+
+.my-message {
+    max-width: 47.5%;
+    align-items: flex-end;
+    margin-left: auto;
+}
+
+.employer-message {
+    max-width: 47.5%;
+    align-items: flex-start;
+    margin-right: auto;
+}
+
+.my-message-content {
+    border-radius: 16px 16px 0px 16px;
+    background: #f4f4f5;
+    border-radius: 16px 16px 0px 16px;
+    background: #f4f4f5;
+    color: #1c1d22;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+.employer-message-content {
+    display: flex;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 16px 16px 16px 0px;
+    background: #323333;
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
 }

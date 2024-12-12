@@ -5,14 +5,18 @@ import { LoaderCircle } from "lucide-react";
 import { useGetApiArchitectChats } from "@/services/architect-services/api-architect-chats-get";
 import { useParams } from "next/navigation";
 import { useChatList } from "./context/ChatRoomContext";
+import { ChatContent } from "./components/ChatContent";
 
 export const ChatRoom = () => {
     const { id } = useParams<{ id: string }>();
-    const { data: chatInfo, isLoading: fetchingChatInfo } =
-        useGetApiArchitectChats(
-            { ChatId: id },
-            { query: { enabled: Boolean(id) } }
-        );
+    const {
+        data: chatInfo,
+        isLoading: fetchingChatInfo,
+        refetch,
+    } = useGetApiArchitectChats(
+        { ChatId: id },
+        { query: { enabled: Boolean(id) } }
+    );
 
     const { currentChatData } = useChatList();
 
@@ -50,9 +54,15 @@ export const ChatRoom = () => {
                 </div>
             </div>
             <div className="w-full h-[2px] bg-border" />
-            <div className="flex-1 max-h-full overflow-y-auto">chats</div>
+            <div className=" flex-1 max-h-full overflow-y-auto">
+                <ChatContent messages={chatValue.messages || []} />
+            </div>
             <div className="p-4">
-                <ChatForm chatId={chatValue?.chatId} />
+                <ChatForm
+                    chatId={chatValue?.chatId}
+                    recieverId={currentChatData.chattedUserId}
+                    refetchMessages={refetch}
+                />
             </div>
         </div>
     );
