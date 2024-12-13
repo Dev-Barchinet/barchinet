@@ -26,7 +26,7 @@ export const ConversationWrapper = (props: PropsWithChildren) => {
                 {isLoading && <ConversationLoading />}
                 {!isLoading && (
                     <>
-                        <div className="h-full conversation-layout-border max-h-full overflow-y-auto">
+                        <div className="h-full conversation-layout-border max-h-full min-w-[300px] overflow-y-auto">
                             <ConversationList chats={chatList} />
                         </div>
                         <div className="flex-1 max-h-full h-full max-w-[calc(100%-320px)] conversation-layout-border">

@@ -6,13 +6,13 @@ export const useFileDownloader = (
 ) => {
     const [isDownloading, setIsDownloading] = useState(false);
 
-    const fileAccessToken = fileAccessToken2 
+    const fileAccessToken = fileAccessToken2;
 
     const downloadFile = async (fileUrl: string, fileName: string) => {
         try {
             setIsDownloading(true);
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_GATEWAY}${fileUrl}?token=${encodeURIComponent(fileAccessToken)}`,
+                `${process.env.NEXT_PUBLIC_GATEWAY}${fileUrl}?token=${fileAccessToken}`,
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -43,9 +43,7 @@ export const useFileDownloader = (
     };
 
     const getFileLink = (fileUrl: string) => {
-        return `${
-            process.env.NEXT_PUBLIC_GATEWAY
-        }${fileUrl}?token=${encodeURIComponent(fileAccessToken)}`;
+        return `${process.env.NEXT_PUBLIC_GATEWAY}${fileUrl}?token=${fileAccessToken}`;
     };
 
     return { downloadFile, getFileLink, isDownloading };
