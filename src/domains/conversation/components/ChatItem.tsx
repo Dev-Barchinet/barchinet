@@ -50,6 +50,11 @@ export const ChatItem = (props: ChatItemProps) => {
                 </div>
             </div>
             <div className="flex flex-col gap-1">
+                {Number(chat.unviewedMessageCount) > 0 && (
+                    <div className="px-2.5 py-0.5 bg-black text-white rounded-full">
+                        New
+                    </div>
+                )}
                 <p className="body-2 text-text-muted-foreground">
                     {hours}:{minutes}
                 </p>
