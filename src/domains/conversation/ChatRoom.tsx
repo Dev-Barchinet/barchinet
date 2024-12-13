@@ -20,11 +20,10 @@ export const ChatRoom = () => {
     } = useInfiniteQuery({
         queryKey: ["chatMessages", id],
         queryFn: ({ pageParam }) => {
-            console.log(pageParam);
             return getApiArchitectChats({
                 ChatId: id,
                 Skip: pageParam?.pageParam || 0,
-                Take: Number(pageParam?.take) || 10, // Use `meta.take` or fallback to default
+                Take: Number(pageParam?.take) || 10,
             });
         },
         enabled: Boolean(id),

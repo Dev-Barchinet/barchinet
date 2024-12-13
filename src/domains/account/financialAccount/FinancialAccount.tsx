@@ -29,13 +29,14 @@ export const FinancialAccount = (props: FinancialAccountProps) => {
     const financialAccounts = data?.value;
 
     const handleOpenDeleteAccountModal = (id: string) => {
-        setShowDeleteModal(true);
         setActiveAccountId(id);
+        setShowDeleteModal(true);
     };
 
     const handleOpenEditAccountModal = (id: string) => {
-        setShowEditModal(true);
+        console.log(id);
         setActiveAccountId(id);
+        setShowEditModal(true);
     };
 
     if (isLoading) {

@@ -22,28 +22,31 @@ export const AddFinancialAccountModal = (
             if (response.isSuccess) {
                 toast.success(t("AddFinancialAccountSucceed"));
                 refetchAccounts();
+                setShowAddFinancialAccountModal(false)
             }
         });
     };
     const t = useTranslations("Profile");
     return (
-        <div>
-            <p>{t("addFinancialAccount")}</p>
-            <p>{t("financialAccountNotice")}</p>
-            <Label>{t("financialAccountNumber")}</Label>
+        <div className="flex flex-col gap-2">
+            <p className="title-1">{t("addFinancialAccount")}</p>
+            <p className="body-2-5 text-text-muted-foreground">{t("financialAccountNotice")}</p>
+            <Label className="body-2-5 mb-2">{t("financialAccountNumber")}</Label>
             <Input
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
             />
-            <div>
+            <div className="flex items-center mt-4 justify-between">
                 <Button
                     variant="secondary"
+                    className="max-w-[100px]"
                     onClick={() => setShowAddFinancialAccountModal(false)}
                 >
                     {t("cancel")}
                 </Button>
                 <Button
                     disabled={!accountNumber}
+                    className="max-w-[100px]"
                     onClick={addFinancialAccount}
                     loading={isLoading}
                 >

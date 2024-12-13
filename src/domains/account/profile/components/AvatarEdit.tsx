@@ -8,9 +8,11 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
+import { useFileDownloader } from "@/core/hooks/useFileDownloader";
 import { useDeleteApiArchitectAccountsImageRemove } from "@/services/architect-services/api-architect-accounts-image-remove-delete";
 import { usePostApiArchitectAccountsImageUpload } from "@/services/architect-services/api-architect-accounts-image-upload-post";
 import { Pen, Trash } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -23,6 +25,9 @@ type AvatarEditProps = {
 export const AvatarEdit = (props: AvatarEditProps) => {
     const { profileImage } = props;
     const t = useTranslations("Profile.Avatar");
+    const { data: session } = useSession();
+    const fileAccessToken = session?.user?.fileAccessCredential;
+    const accessToken = session?.user?.accessToken;
 
     const [selectedImage, setSelectedImage] = useState<
         string | undefined | null
@@ -35,6 +40,8 @@ export const AvatarEdit = (props: AvatarEditProps) => {
 
     const { mutateAsync: deleteProfile, isLoading: deletingImage } =
         useDeleteApiArchitectAccountsImageRemove();
+
+    const { getFileLink } = useFileDownloader(fileAccessToken, accessToken);
 
     const handleDeleteConfirm = () => {
         deleteProfile({ params: { UserImageType: 20007001 } }).then(
@@ -70,7 +77,11 @@ export const AvatarEdit = (props: AvatarEditProps) => {
     return (
         <div className="relative min-w-[150px] min-h-[150px] max-w-[150px] max-h-[150px] overflow-hidden rounded">
             <Image
-                src={selectedImage || "/assets/images/userAvatar.png"}
+                src={
+                    selectedImage
+                        ? getFileLink(selectedImage)
+                        : "/assets/images/userAvatar.png"
+                }
                 width={150}
                 height={150}
                 alt="avatar"

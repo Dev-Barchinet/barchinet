@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import React from "react";
 import { AddFinancialAccountModal } from "./AddFinancialAccountModal";
 import { EditFinancialAccountModal } from "./EditFinancialAccountModal";
+import { DeleteFinancialAccountModal } from "./DeleteFinancialAccountModal";
 
 type FinancialAccountModalsProps = {
     showAddFinancialAccountModal: boolean;
@@ -27,6 +28,7 @@ export const FinancialAccountModals = (props: FinancialAccountModalsProps) => {
         showDeleteModal,
         showEditModal,
     } = props;
+    
     return (
         <div>
             <Dialog
@@ -50,8 +52,24 @@ export const FinancialAccountModals = (props: FinancialAccountModalsProps) => {
                 <DialogContent>
                     <DialogTitle></DialogTitle>
                     <EditFinancialAccountModal
+                        activeAccountId={activeAccountId}
+                        setActiveAccountId={setActiveAccountId}
                         refetchAccounts={refetchAccounts}
                         setShowEditModal={setShowEditModal}
+                    />
+                </DialogContent>
+            </Dialog>
+            <Dialog
+                open={showDeleteModal}
+                onOpenChange={() => setShowDeleteModal(false)}
+            >
+                <DialogContent>
+                    <DialogTitle></DialogTitle>
+                    <DeleteFinancialAccountModal
+                        activeAccountId={activeAccountId}
+                        setActiveAccountId={setActiveAccountId}
+                        refetchAccounts={refetchAccounts}
+                        setShowDeleteModal={setShowDeleteModal}
                     />
                 </DialogContent>
             </Dialog>
