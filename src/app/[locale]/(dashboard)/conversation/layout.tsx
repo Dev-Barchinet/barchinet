@@ -9,7 +9,7 @@ type ConversationLayoutProps = PropsWithChildren;
 const ConversationLayout = (props: ConversationLayoutProps) => {
     return (
         <ChatRoomContextProvider>
-            <ConversationWrapper>{props.children}</ConversationWrapper>;
+            <ConversationWrapper>{props.children}</ConversationWrapper>
         </ChatRoomContextProvider>
     );
 };

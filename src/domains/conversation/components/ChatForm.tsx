@@ -65,8 +65,6 @@ export const ChatForm = (props: ChatFormProps) => {
     };
 
     const handleSendMessage = async () => {
-        if (files.length === 0 && !message) return;
-
         const response = await postMessage({
             data: {
                 ChatId: chatId,
@@ -130,6 +128,7 @@ export const ChatForm = (props: ChatFormProps) => {
                 <textarea
                     className="focus:outline-none focus:border-transparent flex-1 rounded-md resize-none h-[30px] overflow-y-auto max-h-[200px]"
                     placeholder="Type your message here..."
+                    value={message}
                     onInput={(e) => {
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-expect-error
@@ -140,9 +139,11 @@ export const ChatForm = (props: ChatFormProps) => {
                             200
                         )}px`;
                     }}
+                    onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
                 <Button
                     className="max-w-[100px]"
+                    disabled={files.length === 0 && !message}
                     onClick={handleSendMessage}
                     loading={handleSendingMessage}
                 >

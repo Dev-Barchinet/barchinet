@@ -48,7 +48,7 @@ export default function DashboardLayout({
               </div>
             </header>
             {/* Dynamically adjust width based on the sidebar's state */}
-            <div className={`flex-1 overflow-y-auto ${isSidebarCollapsed ? 'max-w-[calc(100dvw-47px)]' : 'max-w-[calc(100dvw-255px)]'}`}>
+            <div className={`flex-1 overflow-y-auto max-h-full ${isSidebarCollapsed ? 'max-w-[calc(100dvw-47px)]' : 'max-w-[calc(100dvw-255px)]'}`}>
               {children}
             </div>
           </div>

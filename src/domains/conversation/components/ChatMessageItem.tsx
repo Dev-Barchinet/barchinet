@@ -1,5 +1,7 @@
+import { useFileDownloader } from "@/core/hooks/useFileDownloader";
 import { SocialChatsQueriesV1SharedGetMessagesChatMessageContract } from "@/services/architect-services/api-architect-chats-get.schemas";
-import { LucideFile, LucideTicket } from "lucide-react";
+import { LoaderCircle, LucideFile, LucideTicket } from "lucide-react";
+import { useSession } from "next-auth/react";
 import React from "react";
 
 type ChatMessageItemProps = {
@@ -8,6 +10,13 @@ type ChatMessageItemProps = {
 
 export const ChatMessageItem = (props: ChatMessageItemProps) => {
     const { message } = props;
+    const { data: session } = useSession();
+    const fileAccessToken = session?.user?.fileAccessCredential;
+    const accessToken = session?.user?.accessToken;
+    const { downloadFile, isDownloading } = useFileDownloader(
+        fileAccessToken,
+        accessToken
+    );
 
     const isMyMessage = message.isCurrentUser;
     const isMessageSeen = message.isViewed;
@@ -16,6 +25,7 @@ export const ChatMessageItem = (props: ChatMessageItemProps) => {
     const lastModifiedHour = messageTime.getHours();
     const lastModifiedMinutes = messageTime.getMinutes();
     const isMessageFile = message.type === 60001002;
+    const fileName = message.value?.split("/").slice(-1)[0];
 
     return (
         <div
@@ -31,14 +41,20 @@ export const ChatMessageItem = (props: ChatMessageItemProps) => {
                 }`}
             >
                 {isMessageFile ? (
-                    <div className="flex items-center gap-2">
-                        <LucideFile /> <p>{}</p>
+                    <div
+                        className="flex items-center gap-2 cursor-pointer"
+                        onClick={() =>
+                            downloadFile(message?.value || "", fileName || "")
+                        }
+                    >
+                        <LucideFile /> <p>{fileName}</p>
                     </div>
                 ) : (
                     <p>{message.value}</p>
                 )}
             </div>
             <div className="flex items-center gap-1">
+                {isDownloading && <LoaderCircle />}
                 <p className="text-[#8B8D97] body-1">
                     {lastModifiedHour}:{lastModifiedMinutes}
                 </p>

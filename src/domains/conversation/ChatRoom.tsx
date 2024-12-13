@@ -2,25 +2,55 @@ import React from "react";
 import { ChatForm } from "./components/ChatForm";
 import Image from "next/image";
 import { LoaderCircle } from "lucide-react";
-import { useGetApiArchitectChats } from "@/services/architect-services/api-architect-chats-get";
+import { getApiArchitectChats } from "@/services/architect-services/api-architect-chats-get";
 import { useParams } from "next/navigation";
 import { useChatList } from "./context/ChatRoomContext";
 import { ChatContent } from "./components/ChatContent";
+import { useInfiniteQuery } from "react-query";
 
 export const ChatRoom = () => {
     const { id } = useParams<{ id: string }>();
+
     const {
         data: chatInfo,
-        isLoading: fetchingChatInfo,
         refetch,
-    } = useGetApiArchitectChats(
-        { ChatId: id },
-        { query: { enabled: Boolean(id) } }
-    );
+        isLoading: fetchingChatInfo,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = useInfiniteQuery({
+        queryKey: ["chatMessages", id],
+        queryFn: ({ pageParam }) => {
+            console.log(pageParam);
+            return getApiArchitectChats({
+                ChatId: id,
+                Skip: pageParam?.pageParam || 0,
+                Take: Number(pageParam?.take) || 10, // Use `meta.take` or fallback to default
+            });
+        },
+        enabled: Boolean(id),
+        getNextPageParam: (lastPage, allPages) => {
+            const totalCount = lastPage.value?.totalCount || 0;
+            const currentPage = allPages.length;
+            const fetchedItems = currentPage * 10;
+
+            const remainingItems = Math.max(0, totalCount - fetchedItems);
+            const take = Math.min(10, remainingItems);
+
+            if (remainingItems > 0) {
+                return {
+                    pageParam: fetchedItems,
+                    meta: { take },
+                };
+            }
+            return undefined;
+        },
+    });
 
     const { currentChatData } = useChatList();
 
-    const chatValue = chatInfo?.value;
+    const chatMessages = chatInfo?.pages.flatMap(
+        (page) => page.value?.messages || {}
+    );
 
     if (fetchingChatInfo) {
         return (
@@ -30,12 +60,12 @@ export const ChatRoom = () => {
         );
     }
 
-    if (!chatInfo || !chatValue?.chatId || !currentChatData) {
+    if (!chatInfo || !currentChatData) {
         return "we are cooked";
     }
 
     return (
-        <div className="flex flex-col h-full flex-1">
+        <div className="flex flex-col max-h-[100%-80px] h-full flex-1">
             <div className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-1">
                     <Image
@@ -54,12 +84,15 @@ export const ChatRoom = () => {
                 </div>
             </div>
             <div className="w-full h-[2px] bg-border" />
-            <div className=" flex-1 max-h-full overflow-y-auto">
-                <ChatContent messages={chatValue.messages || []} />
-            </div>
+            <ChatContent
+                messages={chatMessages || []}
+                fetchNextPage={fetchNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+            />
+
             <div className="p-4">
                 <ChatForm
-                    chatId={chatValue?.chatId}
+                    chatId={chatInfo.pages[0].value?.chatId || ""}
                     recieverId={currentChatData.chattedUserId}
                     refetchMessages={refetch}
                 />
