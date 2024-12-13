@@ -3,6 +3,11 @@
         "title": "Hello world!",
         "about": "Go to the about page"
     },
+    "ContactUs": {
+      "faqTab": "Faq",
+      "ticketingTab": "Ticketing",
+      "aboutUs": "About Us"
+    },
     "Auth": {
         "CheckEmail": {
             "login": "Login",
@@ -13,7 +18,7 @@
             "signInGoogle": "Sign in with Google",
             "signInLinedin": "Sign in with Linkedin",
             "getCode": "Get The Code",
-            "or": "OR CONTINUE WITH"
+            "or": "OR"
         },
         "EnterOtp": {
             "otpCode": "Otp Code",

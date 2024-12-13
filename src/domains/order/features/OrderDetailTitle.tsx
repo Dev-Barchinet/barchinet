@@ -35,6 +35,7 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
   const t = useTranslations("Order.OrderHeader");
 
   const orderAcceptedByArchitect = !Boolean(orderData.pendingAgreementReview);
+  const employerPaidMoney = orderData.chatingEnabled
   const orderStatus = getOrderStatus(orderAcceptedByArchitect);
 
   const agreementId = orderData.agreement?.id;
@@ -78,7 +79,7 @@ export const OrderDetailTitle = (props: OrderDetailTitleProps) => {
         <TabsTrigger value="payment">payment</TabsTrigger>
       </TabsList>
       <div className="lex items-center justify-end gap-2.5">
-        {orderAcceptedByArchitect && (
+        {orderAcceptedByArchitect && employerPaidMoney && (
           <>
             {/* <Button className="gap-2" variant="default">
               <File /> {t("agreement")}

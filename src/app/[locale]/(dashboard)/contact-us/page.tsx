@@ -1,9 +1,8 @@
-import React from 'react'
+import { ContactUs } from "@/domains/contactUs/ContactUs";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>contact us</div>
-  )
-}
+    return <ContactUs />;
+};
 
-export default page
+export default page;

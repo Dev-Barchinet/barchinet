@@ -1,6 +1,6 @@
 import { useFileDownloader } from "@/core/hooks/useFileDownloader";
 import { SocialChatsQueriesV1SharedGetMessagesChatMessageContract } from "@/services/architect-services/api-architect-chats-get.schemas";
-import { LoaderCircle, LucideFile, LucideTicket } from "lucide-react";
+import { Check, LoaderCircle, LucideFile } from "lucide-react";
 import { useSession } from "next-auth/react";
 import React from "react";
 
@@ -21,7 +21,7 @@ export const ChatMessageItem = (props: ChatMessageItemProps) => {
     const isMyMessage = message.isCurrentUser;
     const isMessageSeen = message.isViewed;
 
-    const messageTime = new Date(message.modificationTimestamp || new Date());
+    const messageTime = new Date(message.timestamp || new Date());
     const lastModifiedHour = messageTime.getHours();
     const lastModifiedMinutes = messageTime.getMinutes();
     const isMessageFile = message.type === 60001002;
@@ -60,7 +60,7 @@ export const ChatMessageItem = (props: ChatMessageItemProps) => {
                 </p>
                 {isMyMessage && isMessageSeen && (
                     <div className="flex items-center bg-[#F4F4F5] rounded">
-                        <LucideTicket />
+                        <Check className="w-[12px] h-[12px]" />
                     </div>
                 )}
             </div>
