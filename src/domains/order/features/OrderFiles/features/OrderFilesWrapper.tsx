@@ -64,7 +64,6 @@ export const OrderDraftFiles = (props: OrderDraftFilesProps) => {
             setDescription("");
             result = true;
         }
-        console.log({ result });
         return result;
     };
 
