@@ -17,7 +17,17 @@
       "selectTopic": "Select a Topic",
       "selectIssue": "Select an Issue",
       "submit": "Submit",
-      "ticketCreated": "Ticked created successfully"
+      "ticketCreated": "Ticked created successfully",
+      "ticketId": "Request Number",
+      "requestDate": "Request Date",
+      "orderRegistration": "Order registration",
+      "pending": "Pending",
+      "rejected": "Rejected",
+      "more": "More Details",
+      "accepted": "Accepted"
+    },
+    "TicketDetail": {
+      "ticketing": "Ticketing"
     }
   },
   "Auth": {

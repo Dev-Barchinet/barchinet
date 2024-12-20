@@ -45,6 +45,7 @@ interface DataTableProps<TData, TValue> {
   isLoading: boolean;
   tableTitle: string;
   pageIndex: number;
+  showSearch?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -56,6 +57,7 @@ export function DataTable<TData, TValue>({
   onSearchChanged,
   isLoading,
   tableTitle,
+  showSearch = true,
   pageIndex,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -103,12 +105,14 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between max-w-full">
         <div className="flex items-start justify-between pb-4 w-full">
           <p className="title-2">{tableTitle}</p>
-          <Input
-            placeholder="Search by order number..."
-            value={searchValue}
-            onChange={handleInputChange}
-            className="max-w-sm"
-          />
+          {showSearch && (
+            <Input
+              placeholder="Search by order number..."
+              value={searchValue}
+              onChange={handleInputChange}
+              className="max-w-sm"
+            />
+          )}
         </div>
 
         {showColumnFilter && (

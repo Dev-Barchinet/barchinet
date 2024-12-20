@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,10 +5,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useGetApiArchitectTicketsGetAll } from "@/services/architect-services/api-architect-tickets-get-all-get";
-import { LoaderCircle, Podcast } from "lucide-react";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useState } from "react";
 import { AddTicketModal } from "../components/AddTicketModal";
+import { TicketTable } from "../components/TicketTable";
 
 type TicketingProps = {
   showAddTicket: boolean;
@@ -18,34 +17,25 @@ type TicketingProps = {
 
 export const Ticketing = (props: TicketingProps) => {
   const { showAddTicket, setShowAddTicket } = props;
-  const { data, isLoading, refetch } = useGetApiArchitectTicketsGetAll();
-  const t = useTranslations("ContactUs.Ticketing");
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize] = useState(10);
+  const { data, isLoading, refetch } = useGetApiArchitectTicketsGetAll({
+    PageIndex: pageIndex,
+    PageSize: pageSize,
+  });
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <LoaderCircle className="rotate-animation" />
-      </div>
-    );
-  }
+  const t = useTranslations("ContactUs.Ticketing");
 
   return (
     <div className="w-full h-full">
-      {data?.value?.totalCount === 0 ? (
-        <div className="w-full h-full flex flex-col items-center justify-center gap-3">
-          <Podcast className="gray.500" />
-          <p className="title-3">{t("empty")}</p>
-          <p className="body-1 ">{t("noTicketMessage")}</p>
-          <Button
-            onClick={() => setShowAddTicket(true)}
-            className="max-w-[160px]"
-          >
-            {t("addTicketButton")}
-          </Button>
-        </div>
-      ) : (
-        <div>ticketing</div>
-      )}
+      <TicketTable
+        tickets={data?.value}
+        setPageIndex={setPageIndex}
+        pageIndex={pageIndex}
+        pageSize={pageSize}
+        isLoading={isLoading}
+      />
+
       <Dialog open={showAddTicket} onOpenChange={() => setShowAddTicket(false)}>
         <DialogContent>
           <DialogHeader>
@@ -54,7 +44,7 @@ export const Ticketing = (props: TicketingProps) => {
           <AddTicketModal
             onTicketCreated={() => {
               setShowAddTicket(false);
-              refetch()
+              refetch();
             }}
           />
         </DialogContent>
