@@ -5,5 +5,6 @@ type OrderPaymentsProps = {
 };
 
 export const OrderPayments = (props: OrderPaymentsProps) => {
-  return <div>OrderPayments</div>;
+  const { id } = props;
+  return <div>{id} OrderPayments</div>;
 };

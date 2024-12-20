@@ -1,5 +1,4 @@
 import { QueriesListQueryFilterResultCrmTicketsQueriesV1SharedGetTicketsGetTicketsQueryResult } from "@/services/architect-services/api-architect-tickets-get-all-get.schemas";
-import { useTranslations } from "next-intl";
 import React from "react";
 import { useTicketTableColumns } from "../hooks/useTicketTableColumns";
 import { DataTable } from "@/components/data-table";
@@ -14,7 +13,6 @@ type TicketTableProps = {
 
 export const TicketTable = (props: TicketTableProps) => {
   const { setPageIndex, tickets, pageSize, pageIndex, isLoading } = props;
-  const t = useTranslations("ContactUs.Ticketing");
   const columns = useTicketTableColumns();
 
   const handlePagination = async (step: "next" | "previous") => {
