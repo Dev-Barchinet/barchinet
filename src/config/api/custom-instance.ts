@@ -1,5 +1,5 @@
 import Axios, { AxiosError, AxiosRequestConfig } from "axios";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 
 const axiosInstance = Axios.create({
@@ -52,6 +52,7 @@ const customInstance = async <T>(
 
         if (error?.response?.status === 401) {
           //   signout
+          signOut({ redirect: true, callbackUrl: '/auth/signin' })
           toast(error?.response?.data?.errors?.[0]);
         } else if (expectedError) {
           if (
