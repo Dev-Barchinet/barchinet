@@ -18,7 +18,7 @@ export const AddFinancialAccountModal = (
     const [accountNumber, setAccountNumber] = useState("");
     const { mutateAsync, isLoading } = usePostApiArchitectFinancialAccounts();
     const addFinancialAccount = () => {
-        mutateAsync({ data: { value: accountNumber } }).then((response) => {
+        mutateAsync({ data: { value: accountNumber, isActive: true } }).then((response) => {
             if (response.isSuccess) {
                 toast.success(t("AddFinancialAccountSucceed"));
                 refetchAccounts();

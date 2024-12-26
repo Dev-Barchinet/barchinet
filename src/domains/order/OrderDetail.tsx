@@ -17,6 +17,7 @@ export const OrderDetail = () => {
     });
 
     const orderData = data?.value;
+    const agreementId = orderData?.agreement?.id;
 
     if (isLoading) {
         return "loading ...";
@@ -33,8 +34,8 @@ export const OrderDetail = () => {
             <TabsContent value="files" className="h-full">
                 <OrderFiles orderData={orderData} refetchOrderDetail={() => refetch()} />
             </TabsContent>
-            <TabsContent value="payment">
-                <OrderPayments id={id} />
+            <TabsContent value="payment" className="h-full">
+                <OrderPayments id={id} agreementId={agreementId} />
             </TabsContent>
         </Tabs>
     );

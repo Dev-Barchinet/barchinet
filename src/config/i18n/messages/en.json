@@ -264,6 +264,13 @@
       "downloadAll": "Download All",
       "youHaveComments": "You have Commennt on this revision",
       "viewComments": "View Commennt"
+    },
+    "OrderPayement": {
+      "paymentMethod": "Payment Method",
+      "paymentDate": "Payment Date",
+      "financial": "Financial Account",
+      "trackingNum": "Tracking Number",
+      "amount": "Amount"
     }
   }
 }
