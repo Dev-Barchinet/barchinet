@@ -60,7 +60,7 @@ export const ChatRoom = () => {
     }
 
     if (!chatInfo || !currentChatData) {
-        return "we are cooked";
+        return "No Chat Found, Cooooked!";
     }
 
     return (
