@@ -62,9 +62,8 @@ export const AvatarEdit = (props: AvatarEditProps) => {
                     data: { Image: files[0], UserImageType: 20007001 },
                 }).then((response) => {
                     if (response.isSuccess) {
-                        setSelectedImage(URL.createObjectURL(files[0]));
                         setEditDialogOpen(false);
-
+                        setSelectedImage(URL.createObjectURL(files[0]));
                         toast.success(t("imageUpdateSucceed"));
                     }
                 });
@@ -74,12 +73,17 @@ export const AvatarEdit = (props: AvatarEditProps) => {
         }
     };
 
+    console.log(selectedImage);
+
     return (
         <div className="relative min-w-[150px] min-h-[150px] max-w-[150px] max-h-[150px] overflow-hidden rounded">
             <Image
                 src={
                     selectedImage
-                        ? getFileLink(selectedImage)
+                        ? selectedImage.includes("localhost") ||
+                          selectedImage.includes("architect")
+                            ? selectedImage
+                            : getFileLink(selectedImage)
                         : "/assets/images/userAvatar.png"
                 }
                 width={150}
