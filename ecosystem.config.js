@@ -14,22 +14,20 @@ module.exports = {
         NEXT_PUBLIC_APP_BASE_API_URL: "https://api.barchinet.com:8443/",
         JWT_SECRET: "please dont hack us",
         NEXTAUTH_SECRET: "please dont hack us",
-        NEXTAUTH_URL: "https://architect.barchinet.com",
+        NEXTAUTH_URL: "https://architect.barchinet.com/",
         NEXT_PUBLIC_GATEWAY: "https://api.barchinet.com:8443",
-        GOOGLE_ID:
-          "152686576151-7bp2vue0othm0hoj94nqdj5odbd252rh.apps.googleusercontent.com",
-        GOOGLE_SECRET: "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",
+        GOOGLE_ID:"852152884705-a9ubgkh6if5ujvgugdqgggmkhgf5obts.apps.googleusercontent.com",
+        GOOGLE_SECRET:"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"
       },
       env_production: {
         NODE_ENV: "production",
         NEXT_PUBLIC_APP_BASE_API_URL: "https://api.barchinet.com:8443/",
         JWT_SECRET: "please dont hack us",
         NEXTAUTH_SECRET: "please dont hack us",
-        NEXTAUTH_URL: "https://architect.barchinet.com",
+        NEXTAUTH_URL: "https://architect.barchinet.com/",
         NEXT_PUBLIC_GATEWAY: "https://api.barchinet.com:8443",
-        GOOGLE_ID:
-          "152686576151-7bp2vue0othm0hoj94nqdj5odbd252rh.apps.googleusercontent.com",
-        GOOGLE_SECRET: "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",
+        GOOGLE_ID:"852152884705-a9ubgkh6if5ujvgugdqgggmkhgf5obts.apps.googleusercontent.com",
+        GOOGLE_SECRET:"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"
       },
     },
   ],
