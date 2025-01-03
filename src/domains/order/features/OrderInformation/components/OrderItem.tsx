@@ -7,85 +7,103 @@ import { useGetApiArchitectOrdersItemsDownloadZip } from "@/services/architect-s
 import { useParams } from "next/navigation";
 
 type OrderItemProps = {
-  orderItem: SaleOrdersQueriesV1ArchitectsGetItemsGetItemQueryResult;
-  index: number;
+    orderItem: SaleOrdersQueriesV1ArchitectsGetItemsGetItemQueryResult;
+    index: number;
 };
 
 export const OrderItem = (props: OrderItemProps) => {
-  const { orderItem, index } = props;
-  const t = useTranslations("Order.OrderItems");
+    const { orderItem, index } = props;
+    const t = useTranslations("Order.OrderItems");
 
-  const { id } = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();
 
-  const { refetch, isLoading } = useGetApiArchitectOrdersItemsDownloadZip(
-    {
-      OrderId: id,
-      OrderItemId: orderItem.id,
-    },
-    { query: { enabled: Boolean(id) && Boolean(orderItem.id) && false },  request: { responseType: 'arraybuffer' } }
-  );
+    const { refetch, isLoading } = useGetApiArchitectOrdersItemsDownloadZip(
+        {
+            OrderId: id,
+            OrderItemId: orderItem.id,
+        },
+        {
+            query: { enabled: Boolean(id) && Boolean(orderItem.id) && false },
+            request: { responseType: "arraybuffer" },
+        }
+    );
 
-  const handleDownloadAll = async () => {
-    try {
-      const response = await refetch(); // Triggers the download API
-      const zipFile = response.data
-      if(!zipFile) throw Error("Failed")
-      const blob = new Blob([zipFile], { type: "application/octet-stream" });
-      const url = URL.createObjectURL(blob);
+    const handleDownloadAll = async () => {
+        try {
+            const response = await refetch(); // Triggers the download API
+            const zipFile = response.data;
+            if (!zipFile) throw Error("Failed");
+            const blob = new Blob([zipFile], {
+                type: "application/octet-stream",
+            });
+            const url = URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `order_item_${orderItem.id}_files.zip`;
-      document.body.appendChild(link);
-      link.click();
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `order_item_${orderItem.id}_files.zip`;
+            document.body.appendChild(link);
+            link.click();
 
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Failed to download files:", error);
-    }
-  };
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Failed to download files:", error);
+        }
+    };
 
-  return (
-    <div className="flex flex-col gap-2">
-      <p className="text-[#1EA170] title-4 ">
-        {t("orderIndex", { index: index + 1 })}
-      </p>
-      <div className="flex items-start flex-wrap gap-4">
-        <OrderInformationItemSimpleChild
-          title={t("buildingPartTitle")}
-          body={orderItem.buildingPartTitle}
-        />
-        <OrderInformationItemSimpleChild
-          title={t("length")}
-          body={orderItem.length}
-        />
-        <OrderInformationItemSimpleChild
-          title={t("width")}
-          body={orderItem.width}
-        />
-        <OrderInformationItemSimpleChild
-          title={t("height")}
-          body={orderItem.height}
-        />
-        <OrderInformationItemSimpleChild
-          title={t("description")}
-          body={orderItem.description}
-        />
+    return (
+        <div className="flex flex-col gap-2">
+            <p className="text-[#1EA170] title-4 ">
+                {t("orderIndex", { index: index + 1 })}
+            </p>
+            <div className="flex items-start flex-wrap gap-4">
+                {orderItem?.buildingPartTitle && (
+                    <OrderInformationItemSimpleChild
+                        title={t("buildingPartTitle")}
+                        body={orderItem.buildingPartTitle}
+                    />
+                )}
+                {orderItem?.length && (
+                    <OrderInformationItemSimpleChild
+                        title={t("length")}
+                        body={orderItem.length}
+                    />
+                )}
+                {orderItem?.width && (
+                    <OrderInformationItemSimpleChild
+                        title={t("width")}
+                        body={orderItem.width}
+                    />
+                )}
+                {orderItem?.height && (
+                    <OrderInformationItemSimpleChild
+                        title={t("height")}
+                        body={orderItem.height}
+                    />
+                )}
+                {orderItem?.description && (
+                    <OrderInformationItemSimpleChild
+                        title={t("description")}
+                        body={orderItem.description}
+                    />
+                )}
 
-        {orderItem.attachments && orderItem.attachments.length > 0 && (
-          <OrderInformationItemSimpleChild
-            title={t("files")}
-            body={
-              <FileDisplay
-                files={orderItem.attachments.map((file) => file.path || "")}
-                onDownloadAll={handleDownloadAll}
-                isDownloading={isLoading}
-              />
-            }
-          />
-        )}
-      </div>
-    </div>
-  );
+                {orderItem?.attachments &&
+                    Number(orderItem?.attachments?.length) > 0 && (
+                        <OrderInformationItemSimpleChild
+                            title={t("files")}
+                            body={
+                                <FileDisplay
+                                    files={orderItem.attachments.map(
+                                        (file) => file?.path || ""
+                                    )}
+                                    onDownloadAll={handleDownloadAll}
+                                    isDownloading={isLoading}
+                                />
+                            }
+                        />
+                    )}
+            </div>
+        </div>
+    );
 };

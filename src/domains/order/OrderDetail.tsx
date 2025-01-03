@@ -23,7 +23,7 @@ export const OrderDetail = () => {
         return "loading ...";
     }
 
-    if (!orderData || !id) return "No Order Found, Cooooooked";
+    if (!orderData || !id) return "No Order Found, Coooooocked";
 
     return (
         <Tabs defaultValue="orderInfo" className="p-4 h-full">

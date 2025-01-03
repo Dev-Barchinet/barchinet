@@ -16,21 +16,24 @@ export const OrderItems = (props: OrderItemsProps) => {
     const { fetchingOrderItems, orderItems, orderData } = props;
     const t = useTranslations("Order.OrderItems");
 
-
     if (fetchingOrderItems) return <Skeleton className="w-full h-[60px]" />;
     return (
         <div className="flex flex-col gap-8 w-full">
             <div className="flex flex-col gap-2">
                 <p className="title-4">{t("landDimention")}</p>
                 <div className="flex items-center gap-4 flex-wrap">
-                    <OrderInformationItemSimpleChild
-                        title={t("length")}
-                        body={orderData.length}
-                    />
-                    <OrderInformationItemSimpleChild
-                        title={t("width")}
-                        body={orderData.width}
-                    />
+                    {orderData?.length && (
+                        <OrderInformationItemSimpleChild
+                            title={t("length")}
+                            body={orderData.length}
+                        />
+                    )}
+                    {orderData?.width && (
+                        <OrderInformationItemSimpleChild
+                            title={t("width")}
+                            body={orderData.width}
+                        />
+                    )}
                 </div>
             </div>
             {Boolean(orderItems) &&

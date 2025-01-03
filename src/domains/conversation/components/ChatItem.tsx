@@ -13,8 +13,8 @@ export const ChatItem = (props: ChatItemProps) => {
 
     const isActive = chat.chatId ? pathname.includes(chat.chatId) : false;
     const lastChanged = new Date(chat.modifiedOnDateTime || new Date());
-    const hours = lastChanged.getHours();
-    const minutes = lastChanged.getMinutes();
+    const hours = String(lastChanged.getHours()).padStart(2, "0");
+    const minutes = String(lastChanged.getMinutes()).padStart(2, "0");
 
     return (
         <Link
@@ -55,7 +55,7 @@ export const ChatItem = (props: ChatItemProps) => {
                         New
                     </div>
                 )}
-                <p className="body-2 text-text-muted-foreground">
+                <p className="body-2 text-text-muted-foreground text-center">
                     {hours}:{minutes}
                 </p>
             </div>
